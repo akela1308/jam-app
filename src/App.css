@@ -1,0 +1,18 @@
+.placeholder-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+}
+
+.placeholder-screen h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+

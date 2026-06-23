@@ -1,0 +1,103 @@
+.reg-screen {
+  min-height: 100%;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8) var(--space-5);
+  gap: var(--space-5);
+}
+
+.reg-screen__logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--space-2);
+}
+
+.reg-screen__logo-text {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.reg-screen__logo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.reg-screen__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.reg-screen__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.reg-screen__actions {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.reg-screen__hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.reg-screen__link {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  font-family: var(--font-family);
+  padding: 0;
+}
+
+.reg-screen__divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--space-3);
+  color: var(--color-text-placeholder);
+  font-size: var(--font-size-sm);
+}
+
+.reg-screen__divider::before,
+.reg-screen__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.reg-screen__demo-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.reg-screen__demo-btn:active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

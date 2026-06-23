@@ -1,0 +1,124 @@
+.search-screen__header {
+  background: var(--color-surface);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.search-screen__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.search-screen__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-screen__icon {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+}
+
+.search-screen__input {
+  width: 100%;
+  height: 44px;
+  padding: 0 36px 0 42px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.search-screen__input:focus {
+  border-color: var(--color-primary);
+}
+
+.search-screen__input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.search-screen__clear {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Category grid — 2 columns */
+.search-screen__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+/* Ticket-style category card */
+.category-card {
+  background: var(--cat-color, #f8f8f8);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  min-height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card:active {
+  transform: scale(0.96);
+}
+
+.category-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.category-card__emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* Ticket perforation — vertical dashed line on the right */
+.category-card__perf {
+  width: 1px;
+  height: 60%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0px,
+    rgba(0,0,0,0.15) 3px,
+    transparent 3px,
+    transparent 7px
+  );
+  position: absolute;
+  right: 36px;
+  top: 20%;
+}
+
+.category-card__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}

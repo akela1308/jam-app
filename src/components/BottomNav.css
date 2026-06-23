@@ -1,0 +1,39 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--content-max-width);
+  height: calc(var(--nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.1s ease;
+}
+
+.bottom-nav__item:active {
+  transform: scale(0.88);
+}
+
+/* Center "add" button gets no extra styling — icon handles it */
+.bottom-nav__item--add svg {
+  filter: drop-shadow(0 2px 6px rgba(223, 23, 96, 0.35));
+}

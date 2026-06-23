@@ -1,0 +1,176 @@
+.profile__hero {
+  height: 120px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #9B3864 100%);
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.profile__avatar-wrap {
+  position: absolute;
+  bottom: -36px;
+}
+
+.profile__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  display: block;
+}
+
+.profile__info {
+  margin-top: 44px;
+  padding: 0 var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.profile__name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.profile__bio {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+/* Tier */
+.profile__tier {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  padding: 6px var(--space-4);
+  margin-top: var(--space-1);
+}
+
+.profile__tier-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.profile__tier-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.profile__tier-points {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Actions */
+.profile__actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* Stats row */
+.profile__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.profile__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.profile__stat-num {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.profile__stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.profile__stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-divider);
+}
+
+/* Reviews list */
+.profile__reviews {
+  padding-top: var(--space-4);
+}
+
+.profile-review-card {
+  margin: 0 var(--space-4) var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.profile-review-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+  gap: var(--space-3);
+}
+
+.profile-review-card__product {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.profile-review-card__brand {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  margin-top: 1px;
+}
+
+.profile-review-card__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.profile-review-card__stars {
+  color: var(--color-gold);
+  font-size: var(--font-size-sm);
+  letter-spacing: 1px;
+}
+
+.profile-review-card__date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.profile-review-card__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

@@ -1,0 +1,51 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-xl);
+  padding: 14px var(--space-6);
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  letter-spacing: 0.1px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* Primary — pink #DF1760 */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text-on-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+/* Secondary — outlined */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+/* Ghost — no border */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
