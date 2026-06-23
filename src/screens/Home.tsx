@@ -4,6 +4,7 @@ import './Home.css';
 interface HomeProps {
   onBrand?: () => void;
   onGiveaway?: () => void;
+  onReview?: () => void;
 }
 
 const COUPONS: Coupon[] = [
@@ -25,7 +26,7 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home({ onBrand, onGiveaway }: HomeProps) {
+export function Home({ onBrand, onGiveaway, onReview }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
@@ -78,7 +79,7 @@ export function Home({ onBrand, onGiveaway }: HomeProps) {
         <div className="section-header">
           <span className="section-title">Отзыв дня</span>
         </div>
-        <div className="top-review">
+        <div className="top-review" onClick={onReview} style={{cursor:'pointer'}}>
           <div className="top-review__header">
             <div className="top-review__user-info">
               <div className="top-review__avatar">

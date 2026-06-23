@@ -10,9 +10,10 @@ import { BrandProfile } from './screens/BrandProfile';
 import { Giveaway } from './screens/Giveaway';
 import { ProfileSetup } from './screens/ProfileSetup';
 import { UserProfile } from './screens/UserProfile';
+import { ReviewDetail } from './screens/ReviewDetail';
 import './App.css';
 
-type Screen = NavTab | 'brand' | 'giveaway' | 'setup' | 'user';
+type Screen = NavTab | 'brand' | 'giveaway' | 'setup' | 'user' | 'review';
 
 function App() {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -31,7 +32,7 @@ function App() {
 
   const renderScreen = () => {
     switch (screen) {
-      case 'home':     return <Home onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} />;
+      case 'home':     return <Home onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} onReview={() => setScreen('review')} />;
       case 'search':   return <Search />;
       case 'add':      return <WriteReview onPublish={() => setScreen('home')} />;
       case 'messages': return <Messages onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
@@ -39,6 +40,7 @@ function App() {
       case 'brand':    return <BrandProfile onBack={() => setScreen('home')} onGiveaway={() => setScreen('giveaway')} />;
       case 'giveaway': return <Giveaway onBack={() => setScreen('home')} />;
       case 'user':     return <UserProfile onBack={() => setScreen('messages')} onMessage={() => setScreen('messages')} />;
+      case 'review':   return <ReviewDetail onBack={() => setScreen('home')} onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
       default:         return <Home onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} />;
     }
   };

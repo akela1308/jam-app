@@ -1,0 +1,496 @@
+/* ReviewDetail uses its own scroll — not screen-content */
+.review-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* Header */
+.review-detail__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-divider);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.review-detail__back {
+  background: var(--color-bg);
+  border: none;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+}
+
+.review-detail__header-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.review-detail__save {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scrollable area */
+.review-detail__scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px;
+}
+
+/* Author row */
+.review-detail__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid var(--color-divider);
+  font-family: var(--font-family);
+}
+
+.review-detail__author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.review-detail__author-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-detail__author-name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.review-detail__author-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.review-detail__author-arrow {
+  font-size: 20px;
+  color: var(--color-text-placeholder);
+}
+
+/* Product badge */
+.review-detail__product-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid var(--color-divider);
+  font-family: var(--font-family);
+}
+
+.review-detail__product-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #f7e8f0 0%, #eed8f0 100%);
+  flex-shrink: 0;
+}
+
+.review-detail__product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-detail__product-brand {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.review-detail__product-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.review-detail__product-arrow {
+  font-size: 20px;
+  color: var(--color-text-placeholder);
+}
+
+/* Rating */
+.review-detail__rating-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.review-detail__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.review-detail__star {
+  font-size: 22px;
+  color: var(--color-border);
+}
+
+.review-detail__star--filled {
+  color: var(--color-gold);
+}
+
+.review-detail__rating-num {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* Title */
+.review-detail__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  padding: var(--space-3) var(--space-4) 0;
+  margin: 0;
+}
+
+/* Tags */
+.review-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) 0;
+}
+
+.review-detail__tag {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Photos */
+.review-detail__photos {
+  padding: var(--space-4);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.review-detail__photo {
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f0e8f7 0%, #e8f0f7 100%);
+  flex-shrink: 0;
+}
+
+.review-detail__photo--main {
+  width: 180px;
+  height: 180px;
+}
+
+.review-detail__photo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.review-detail__photo--sm {
+  width: 80px;
+  height: 56px;
+}
+
+.review-detail__photo--more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  background: var(--color-border);
+}
+
+/* Text body */
+.review-detail__body {
+  padding: 0 var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.review-detail__text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Pros / Cons */
+.review-detail__verdict {
+  margin: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+}
+
+.review-detail__verdict-col {
+  flex: 1;
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.review-detail__verdict-col--pro {
+  background: #edf7f0;
+}
+
+.review-detail__verdict-col--con {
+  background: #fdf0f0;
+}
+
+.review-detail__verdict-icon {
+  font-size: 18px;
+}
+
+.review-detail__verdict-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.review-detail__verdict-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.review-detail__verdict-list li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.review-detail__verdict-list li::before {
+  content: '· ';
+  color: var(--color-text-secondary);
+}
+
+/* Actions row */
+.review-detail__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.review-detail__action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.review-detail__action-btn--liked {
+  border-color: #ff4d6d;
+  color: #ff4d6d;
+  background: #fff0f3;
+}
+
+.review-detail__action-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Comments */
+.review-detail__comments {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.review-detail__comments-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.review-comment {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.review-comment__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.review-comment__body {
+  flex: 1;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.review-comment__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.review-comment__user {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.review-comment__time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.review-comment__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: 1.45;
+  margin: 0 0 var(--space-2);
+}
+
+.review-comment__like {
+  background: none;
+  border: none;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--font-family);
+}
+
+/* Comment input bar — fixed at bottom */
+.review-detail__input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--content-max-width);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + var(--safe-bottom));
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider);
+  z-index: 50;
+}
+
+.review-detail__input-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.review-detail__input {
+  flex: 1;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.review-detail__input:focus {
+  border-color: var(--color-primary);
+}
+
+.review-detail__input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.review-detail__send {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-border);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.review-detail__send--active {
+  background: var(--color-primary);
+}
