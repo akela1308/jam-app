@@ -20,6 +20,8 @@ import { Chat, type ChatContact } from './screens/Chat';
 import { Notifications } from './screens/Notifications';
 import { Coupons } from './screens/Coupons';
 import { Events } from './screens/Events';
+import { PointsLevels } from './screens/PointsLevels';
+import { Settings } from './screens/Settings';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
@@ -27,7 +29,7 @@ type Screen =
   | NavTab
   | 'brand' | 'giveaway' | 'setup' | 'user' | 'review'
   | 'product' | 'search-results' | 'edit-profile' | 'chat' | 'notifications'
-  | 'coupons' | 'events';
+  | 'coupons' | 'events' | 'points' | 'settings';
 
 type AppPhase = 'splash' | 'onboarding' | 'app';
 
@@ -153,6 +155,18 @@ function App() {
             tgUser={currentUser}
             displayName={displayName}
             onEdit={() => setScreen('edit-profile')}
+            onSettings={() => setScreen('settings')}
+            onPoints={() => setScreen('points')}
+          />
+        );
+      case 'points':
+        return <PointsLevels onBack={() => setScreen('profile')} />;
+      case 'settings':
+        return (
+          <Settings
+            onBack={() => setScreen('profile')}
+            onEditProfile={() => setScreen('edit-profile')}
+            onPoints={() => setScreen('points')}
           />
         );
       case 'edit-profile':
