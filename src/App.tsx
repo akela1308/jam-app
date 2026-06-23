@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BottomNav, type NavTab } from './components/BottomNav';
 import { Splash } from './screens/Splash';
+import { Onboarding } from './screens/Onboarding';
 import { Registration } from './screens/Registration';
 import { Home } from './screens/Home';
 import { Messages } from './screens/Messages';
@@ -16,22 +17,16 @@ import { ProductDetail, type Product } from './screens/ProductDetail';
 import { SearchResults } from './screens/SearchResults';
 import { EditProfile } from './screens/EditProfile';
 import { Chat, type ChatContact } from './screens/Chat';
+import { Notifications } from './screens/Notifications';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
 type Screen =
   | NavTab
-  | 'brand'
-  | 'giveaway'
-  | 'setup'
-  | 'user'
-  | 'review'
-  | 'product'
-  | 'search-results'
-  | 'edit-profile'
-  | 'chat';
+  | 'brand' | 'giveaway' | 'setup' | 'user' | 'review'
+  | 'product' | 'search-results' | 'edit-profile' | 'chat' | 'notifications';
 
-type AppPhase = 'splash' | 'app';
+type AppPhase = 'splash' | 'onboarding' | 'app';
 
 const CATEGORY_EMOJIS: Record<string, string> = {
   Очищение: '🫧', Отшелушивание: '✨', Тонер: '💧', Сыворотка: '⚗️',
@@ -47,7 +42,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 const tgUser = getTelegramUser();
 
 function App() {
-  // Splash only on first visit (no tgUser means browser/dev mode)
+  // In Telegram: skip splash/onboarding. In browser: show full flow.
   const [phase, setPhase] = useState<AppPhase>(tgUser ? 'app' : 'splash');
   const [isRegistered, setIsRegistered] = useState<boolean>(!!tgUser);
   const [currentUser, setCurrentUser] = useState<TelegramUser | null>(tgUser);
@@ -60,7 +55,12 @@ function App() {
 
   // ── Splash ──────────────────────────────────────────────
   if (phase === 'splash') {
-    return <Splash onDone={() => setPhase('app')} />;
+    return <Splash onDone={() => setPhase('onboarding')} />;
+  }
+
+  // ── Onboarding ──────────────────────────────────────────
+  if (phase === 'onboarding') {
+    return <Onboarding onDone={() => setPhase('app')} />;
   }
 
   // ── Registration ────────────────────────────────────────
@@ -84,7 +84,9 @@ function App() {
 
   const activeTab = (['home', 'search', 'add', 'messages', 'profile'] as NavTab[]).includes(screen as NavTab)
     ? (screen as NavTab)
-    : screen === 'search-results' ? 'search' : screen === 'chat' ? 'messages' : 'home';
+    : screen === 'search-results' ? 'search'
+    : screen === 'chat' ? 'messages'
+    : 'home';
 
   const renderScreen = () => {
     switch (screen) {
@@ -95,8 +97,11 @@ function App() {
             onBrand={() => setScreen('brand')}
             onGiveaway={() => setScreen('giveaway')}
             onReview={() => setScreen('review')}
+            onNotifications={() => setScreen('notifications')}
           />
         );
+      case 'notifications':
+        return <Notifications onBack={() => setScreen('home')} />;
       case 'search':
         return (
           <Search

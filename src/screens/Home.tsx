@@ -6,6 +6,7 @@ interface HomeProps {
   onBrand?: () => void;
   onGiveaway?: () => void;
   onReview?: () => void;
+  onNotifications?: () => void;
 }
 
 const COUPONS: Coupon[] = [
@@ -27,15 +28,21 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home({ userName, onBrand, onGiveaway, onReview }: HomeProps) {
+export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
       <div className="home__header">
         <span className="home__logo">ДЖЕМ</span>
-        {userName && (
-          <span className="home__greeting-name">Привет, {userName} 👋</span>
-        )}
+        <div className="home__header-right">
+          {userName && (
+            <span className="home__greeting-name">Привет, {userName} 👋</span>
+          )}
+          <button className="home__notif-btn" onClick={onNotifications} aria-label="Уведомления">
+            <BellIcon />
+            <span className="home__notif-badge" />
+          </button>
+        </div>
       </div>
 
       {/* Coupons section */}
@@ -100,5 +107,14 @@ export function Home({ userName, onBrand, onGiveaway, onReview }: HomeProps) {
         </div>
       </section>
     </div>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
