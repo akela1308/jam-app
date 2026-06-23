@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BottomNav, type NavTab } from './components/BottomNav';
+import { Splash } from './screens/Splash';
 import { Registration } from './screens/Registration';
 import { Home } from './screens/Home';
 import { Messages } from './screens/Messages';
@@ -14,6 +15,7 @@ import { ReviewDetail } from './screens/ReviewDetail';
 import { ProductDetail, type Product } from './screens/ProductDetail';
 import { SearchResults } from './screens/SearchResults';
 import { EditProfile } from './screens/EditProfile';
+import { Chat, type ChatContact } from './screens/Chat';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
@@ -26,7 +28,10 @@ type Screen =
   | 'review'
   | 'product'
   | 'search-results'
-  | 'edit-profile';
+  | 'edit-profile'
+  | 'chat';
+
+type AppPhase = 'splash' | 'app';
 
 const CATEGORY_EMOJIS: Record<string, string> = {
   Очищение: '🫧', Отшелушивание: '✨', Тонер: '💧', Сыворотка: '⚗️',
@@ -42,16 +47,23 @@ const CATEGORY_LABELS: Record<string, string> = {
 const tgUser = getTelegramUser();
 
 function App() {
+  // Splash only on first visit (no tgUser means browser/dev mode)
+  const [phase, setPhase] = useState<AppPhase>(tgUser ? 'app' : 'splash');
   const [isRegistered, setIsRegistered] = useState<boolean>(!!tgUser);
   const [currentUser, setCurrentUser] = useState<TelegramUser | null>(tgUser);
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
   const [selectedCategory, setSelectedCategory] = useState<string>('Сыворотка');
+  const [chatContact, setChatContact] = useState<ChatContact | undefined>(undefined);
 
-  const activeTab = (['home', 'search', 'add', 'messages', 'profile'] as NavTab[]).includes(screen as NavTab)
-    ? (screen as NavTab)
-    : screen === 'search-results' ? 'search' : 'home';
+  void setCurrentUser;
 
+  // ── Splash ──────────────────────────────────────────────
+  if (phase === 'splash') {
+    return <Splash onDone={() => setPhase('app')} />;
+  }
+
+  // ── Registration ────────────────────────────────────────
   if (!isRegistered) {
     return (
       <Registration
@@ -63,13 +75,16 @@ function App() {
     );
   }
 
+  // ── Profile setup (browser only) ────────────────────────
   if (screen === 'setup' && !tgUser) {
     return <ProfileSetup onComplete={() => setScreen('home')} />;
   }
 
   const displayName = currentUser ? getDisplayName(currentUser) : '@гость';
 
-  void setCurrentUser;
+  const activeTab = (['home', 'search', 'add', 'messages', 'profile'] as NavTab[]).includes(screen as NavTab)
+    ? (screen as NavTab)
+    : screen === 'search-results' ? 'search' : screen === 'chat' ? 'messages' : 'home';
 
   const renderScreen = () => {
     switch (screen) {
@@ -102,7 +117,22 @@ function App() {
           />
         );
       case 'add':      return <WriteReview onPublish={() => setScreen('home')} />;
-      case 'messages': return <Messages onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
+      case 'messages':
+        return (
+          <Messages
+            onUserProfile={() => setScreen('user')}
+            onBrandProfile={() => setScreen('brand')}
+            onChat={(contact) => { setChatContact(contact); setScreen('chat'); }}
+          />
+        );
+      case 'chat':
+        return (
+          <Chat
+            contact={chatContact}
+            onBack={() => setScreen('messages')}
+            onProfile={() => chatContact?.isBrand ? setScreen('brand') : setScreen('user')}
+          />
+        );
       case 'profile':
         return (
           <Profile
