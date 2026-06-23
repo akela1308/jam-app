@@ -24,7 +24,12 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'users', label: 'Пользователи' },
 ];
 
-export function Messages() {
+interface MessagesProps {
+  onUserProfile?: () => void;
+  onBrandProfile?: () => void;
+}
+
+export function Messages({ onUserProfile, onBrandProfile }: MessagesProps) {
   const [activeTab, setActiveTab] = useState<Tab>('all');
 
   const filtered = ALL_MESSAGES.filter((m) => {
@@ -55,7 +60,7 @@ export function Messages() {
           <MessageListItem
             key={msg.id}
             message={msg}
-            onClick={() => console.log('open chat', msg.id)}
+            onClick={() => msg.isBrand ? onBrandProfile?.() : onUserProfile?.()}
           />
         ))}
       </div>
