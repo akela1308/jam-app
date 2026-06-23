@@ -1,6 +1,11 @@
 import { CouponCard, type Coupon } from '../components/CouponCard';
 import './Home.css';
 
+interface HomeProps {
+  onBrand?: () => void;
+  onGiveaway?: () => void;
+}
+
 const COUPONS: Coupon[] = [
   { id: '1', brand: 'blush', title: 'Holiday Cards\nby blush', discount: '-20%', expiresAt: '31 дек', color: 'linear-gradient(135deg, #DF1760 0%, #9B3864 100%)' },
   { id: '2', brand: 'med_b', title: 'Осенняя\nколлекция', discount: '-15%', expiresAt: '15 янв', color: 'linear-gradient(135deg, #6c63ff 0%, #3f3d8b 100%)' },
@@ -20,7 +25,7 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home() {
+export function Home({ onBrand, onGiveaway }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
@@ -61,7 +66,7 @@ export function Home() {
               </div>
               <div className="event-card__right">
                 <span className="event-card__participants">{ev.participants} участников</span>
-                <button className="event-card__join-btn">Участвовать</button>
+                <button className="event-card__join-btn" onClick={onGiveaway}>Участвовать</button>
               </div>
             </div>
           ))}
