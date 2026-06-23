@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Button } from '../components/Button';
 import type { Product } from './ProductDetail';
 import './BrandProfile.css';
 
-type BrandTab = 'products' | 'reviews';
+type BrandTab = 'reviews' | 'products';
 
 const PRODUCTS: Product[] = [
   { id: '1', name: 'Vitamin C Serum',     rating: 4.8, reviews: 124, price: '2 490 ₽' },
@@ -13,9 +12,33 @@ const PRODUCTS: Product[] = [
 ];
 
 const REVIEWS = [
-  { id: '1', user: '@anna_skin',   product: 'Vitamin C Serum',   rating: 5, date: '15 дек', text: 'Лучшая сыворотка с витамином С! Кожа сияет уже через неделю.' },
-  { id: '2', user: '@kate_beauty', product: 'Hydro Boost Cream', rating: 4, date: '10 дек', text: 'Отличное увлажнение, но немного тяжёлый для лета.' },
-  { id: '3', user: '@user01',      product: 'AHA/BHA Toner',     rating: 5, date: '5 дек',  text: 'Поры стали заметно меньше, текстура кожи выровнялась.' },
+  {
+    id: '1', user: '@anna_skin', avatar: 'https://i.pravatar.cc/48?img=1',
+    product: 'Vitamin C Serum',
+    photo: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200&q=80',
+    rating: 5, date: '15 дек',
+    text: 'Лучшая сыворотка с витамином С! Кожа сияет уже через неделю использования.',
+  },
+  {
+    id: '2', user: '@kate_beauty', avatar: 'https://i.pravatar.cc/48?img=5',
+    product: 'Hydro Boost Cream',
+    photo: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=200&q=80',
+    rating: 4, date: '10 дек',
+    text: 'Отличное увлажнение, но немного тяжёлый для лета. Зимой — идеально.',
+  },
+  {
+    id: '3', user: '@user01', avatar: 'https://i.pravatar.cc/48?img=3',
+    product: 'AHA/BHA Toner',
+    photo: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80',
+    rating: 5, date: '5 дек',
+    text: 'Поры стали заметно меньше, текстура кожи выровнялась за 2 недели.',
+  },
+];
+
+// Social icons (VK + Telegram matching Figma)
+const SOCIAL = [
+  { id: 'vk',  label: 'VK',       color: '#0077FF', bg: '#E8F1FF', letter: 'V' },
+  { id: 'tg',  label: 'Telegram', color: '#26A5E4', bg: '#E3F4FC', letter: 'T' },
 ];
 
 interface BrandProfileProps {
@@ -25,80 +48,102 @@ interface BrandProfileProps {
 }
 
 export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProps) {
-  const [activeTab, setActiveTab] = useState<BrandTab>('products');
+  const [activeTab, setActiveTab] = useState<BrandTab>('reviews');
   const [subscribed, setSubscribed] = useState(false);
 
   return (
     <div className="screen-content">
-      {/* Hero */}
-      <div className="brand-profile__hero">
-        <button className="brand-profile__back" onClick={onBack}>
-          ←
-        </button>
-        <div className="brand-profile__logo-wrap">
-          <div className="brand-profile__logo">B</div>
+      {/* Top bar */}
+      <div className="bp__topbar">
+        <button className="bp__back" onClick={onBack}>✕</button>
+      </div>
+
+      {/* Hero — avatar left, info right (matching Figma layout) */}
+      <div className="bp__hero">
+        <div className="bp__avatar-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&q=80"
+            alt="blush brand"
+            className="bp__avatar"
+          />
+          <div className="bp__rating-badge">
+            <span className="bp__rating-star">★</span>
+            <span className="bp__rating-num">4.8</span>
+          </div>
+        </div>
+
+        <div className="bp__hero-info">
+          <h1 className="bp__brand-name">@blush</h1>
+          <div className="bp__stats-list">
+            <span className="bp__stat-row"><strong>12.4K</strong> подписчиков</span>
+            <span className="bp__stat-row"><strong>{PRODUCTS.length}</strong> продукта</span>
+            <span className="bp__stat-row"><strong>491</strong> отзывов</span>
+          </div>
+          {/* Social icons */}
+          <div className="bp__social">
+            {SOCIAL.map((s) => (
+              <div key={s.id} className="bp__social-icon" style={{ background: s.bg, color: s.color }}>
+                <span className="bp__social-letter">{s.letter}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Info */}
-      <div className="brand-profile__info">
-        <h1 className="brand-profile__name">blush</h1>
-        <p className="brand-profile__bio">Корейская косметика для чувствительной кожи. Натуральные ингредиенты, дерматологически протестировано.</p>
-
-        {/* Stats */}
-        <div className="brand-profile__stats">
-          <div className="brand-profile__stat">
-            <span className="brand-profile__stat-num">12.4K</span>
-            <span className="brand-profile__stat-label">Подписчики</span>
-          </div>
-          <div className="brand-profile__stat-divider" />
-          <div className="brand-profile__stat">
-            <span className="brand-profile__stat-num">{PRODUCTS.length}</span>
-            <span className="brand-profile__stat-label">Продукты</span>
-          </div>
-          <div className="brand-profile__stat-divider" />
-          <div className="brand-profile__stat">
-            <span className="brand-profile__stat-num">491</span>
-            <span className="brand-profile__stat-label">Отзывы</span>
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="brand-profile__actions">
-          <Button
-            fullWidth
-            variant={subscribed ? 'secondary' : 'primary'}
-            onClick={() => setSubscribed(!subscribed)}
-          >
-            {subscribed ? 'Подписан ✓' : 'Подписаться'}
-          </Button>
-          {onGiveaway && (
-            <button className="brand-profile__giveaway-btn" onClick={onGiveaway}>
-              🎁 Розыгрыш
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="brand-profile__tabs">
+      {/* Action buttons — green like Figma */}
+      <div className="bp__actions">
         <button
-          className={`brand-profile__tab${activeTab === 'products' ? ' brand-profile__tab--active' : ''}`}
-          onClick={() => setActiveTab('products')}
+          className={`bp__btn bp__btn--subscribe${subscribed ? ' bp__btn--subscribed' : ''}`}
+          onClick={() => setSubscribed(!subscribed)}
         >
-          Продукты
+          {subscribed ? 'Подписан ✓' : 'Подписаться'}
         </button>
+        <button className="bp__btn bp__btn--message" onClick={onGiveaway}>
+          Сообщение
+        </button>
+      </div>
+
+      {/* Tabs — Reviews first (Figma order) */}
+      <div className="bp__tabs">
         <button
-          className={`brand-profile__tab${activeTab === 'reviews' ? ' brand-profile__tab--active' : ''}`}
+          className={`bp__tab${activeTab === 'reviews' ? ' bp__tab--active' : ''}`}
           onClick={() => setActiveTab('reviews')}
         >
           Отзывы
         </button>
+        <button
+          className={`bp__tab${activeTab === 'products' ? ' bp__tab--active' : ''}`}
+          onClick={() => setActiveTab('products')}
+        >
+          Продукты
+        </button>
       </div>
 
       {/* Tab content */}
-      {activeTab === 'products' ? (
-        <div className="brand-profile__products">
+      {activeTab === 'reviews' ? (
+        <div className="bp__review-list">
+          {REVIEWS.map((rv) => (
+            <div key={rv.id} className="bp__review-card">
+              {/* Left: product photo with reviewer avatar overlapping corner */}
+              <div className="bp__review-photo-wrap">
+                <img src={rv.photo} alt={rv.product} className="bp__review-photo" />
+                <img src={rv.avatar} alt={rv.user} className="bp__review-avatar" />
+              </div>
+              {/* Right: info */}
+              <div className="bp__review-body">
+                <span className="bp__review-product">{rv.product}</span>
+                <span className="bp__review-user">{rv.user}</span>
+                <p className="bp__review-text">{rv.text}</p>
+                <div className="bp__review-meta">
+                  <span className="bp__review-stars">{'★'.repeat(rv.rating)}</span>
+                  <span className="bp__review-date">{rv.date}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bp__product-list">
           {PRODUCTS.map((p) => (
             <div
               key={p.id}
@@ -115,22 +160,6 @@ export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProp
                 <span className="brand-product-card__price">{p.price}</span>
               </div>
               <button className="brand-product-card__arrow">›</button>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="brand-profile__reviews">
-          {REVIEWS.map((rv) => (
-            <div key={rv.id} className="brand-review-card">
-              <div className="brand-review-card__header">
-                <span className="brand-review-card__user">{rv.user}</span>
-                <div className="brand-review-card__right">
-                  <span className="brand-review-card__stars">{'★'.repeat(rv.rating)}</span>
-                  <span className="brand-review-card__date">{rv.date}</span>
-                </div>
-              </div>
-              <span className="brand-review-card__product">{rv.product}</span>
-              <p className="brand-review-card__text">{rv.text}</p>
             </div>
           ))}
         </div>

@@ -3,15 +3,15 @@ import { SearchFilters, type Filters } from '../components/SearchFilters';
 import './Search.css';
 
 const CATEGORIES = [
-  { id: 'cleansing',    emoji: '🫧', label: 'Очищение',           color: '#F7E8F0' },
-  { id: 'exfoliation',  emoji: '✨', label: 'Отшелушивание',      color: '#EEF0F7' },
-  { id: 'toner',        emoji: '💧', label: 'Тонер',              color: '#E8F4F7' },
-  { id: 'serum',        emoji: '⚗️', label: 'Сыворотка',          color: '#F0F7E8' },
-  { id: 'mask',         emoji: '🎭', label: 'Маска',              color: '#F7F0E8' },
-  { id: 'cream',        emoji: '🫙', label: 'Крем',               color: '#F7E8E8' },
-  { id: 'eye-cream',    emoji: '👁️', label: 'Крем для глаз',      color: '#E8F7F0' },
-  { id: 'lip-balm',     emoji: '💋', label: 'Бальзам для губ',    color: '#F7EBE8' },
-  { id: 'sunscreen',    emoji: '☀️', label: 'Солнцезащита',       color: '#FFF8E8' },
+  { id: 'cleansing',   label: 'Очищение',        photo: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&q=80' },
+  { id: 'exfoliation', label: 'Пилинг',          photo: 'https://images.unsplash.com/photo-1631390930571-ec7aba5310a4?w=300&q=80' },
+  { id: 'toner',       label: 'Тонер',           photo: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&q=80' },
+  { id: 'serum',       label: 'Сыворотка',       photo: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80' },
+  { id: 'mask',        label: 'Маска',           photo: 'https://images.unsplash.com/photo-1600857544200-b2f468e3ef97?w=300&q=80' },
+  { id: 'cream',       label: 'Крем',            photo: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300&q=80' },
+  { id: 'eye-cream',   label: 'Крем для глаз',  photo: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&q=80' },
+  { id: 'lip-balm',    label: 'Бальзам для губ', photo: 'https://images.unsplash.com/photo-1586495777744-4e6232bf5e25?w=300&q=80' },
+  { id: 'sunscreen',   label: 'SPF защита',      photo: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=300&q=80' },
 ];
 
 const DEFAULT_FILTERS: Filters = { skinTypes: [], minRating: 0, category: '' };
@@ -98,13 +98,15 @@ export function Search({ onCategorySelect }: SearchProps) {
               <button
                 key={cat.id}
                 className="category-card"
-                style={{ '--cat-color': cat.color } as React.CSSProperties}
                 onClick={() => onCategorySelect?.(cat.id)}
               >
-                <div className="category-card__top">
-                  <span className="category-card__emoji">{cat.emoji}</span>
-                  <div className="category-card__perf" />
-                </div>
+                <img
+                  src={cat.photo}
+                  alt={cat.label}
+                  className="category-card__img"
+                  loading="lazy"
+                />
+                <div className="category-card__overlay" />
                 <span className="category-card__label">{cat.label}</span>
               </button>
             ))

@@ -1,141 +1,165 @@
-.brand-profile__hero {
-  height: 140px;
-  background: linear-gradient(135deg, #DF1760 0%, #711C47 100%);
-  position: relative;
+/* ── Top bar ─────────────────────────────────────────── */
+.bp__topbar {
   display: flex;
-  align-items: flex-start;
-  padding: var(--space-4);
+  align-items: center;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  background: var(--color-surface);
 }
 
-.brand-profile__back {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: white;
-  font-size: 20px;
-  width: 36px;
-  height: 36px;
+.bp__back {
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+  transition: background 0.12s;
 }
 
-.brand-profile__logo-wrap {
-  position: absolute;
-  bottom: -32px;
-  left: 50%;
-  transform: translateX(-50%);
+.bp__back:active { background: var(--color-border); }
+
+/* ── Hero: avatar left, info right ─────────────────── */
+.bp__hero {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  background: var(--color-surface);
 }
 
-.brand-profile__logo {
-  width: 72px;
-  height: 72px;
+.bp__avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.bp__avatar {
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  background: white;
-  border: 3px solid white;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--color-border);
+}
+
+/* Rating badge overlapping bottom-left of avatar */
+.bp__rating-badge {
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  background: #F59E0B;
+  color: white;
+  border-radius: var(--radius-full);
+  padding: 3px 7px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--color-primary);
+  gap: 2px;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  border: 2px solid var(--color-surface);
 }
 
-.brand-profile__info {
-  margin-top: 44px;
-  padding: 0 var(--space-4) var(--space-4);
+.bp__rating-star { font-size: 10px; }
+.bp__rating-num  { line-height: 1; }
+
+/* Right side info */
+.bp__hero-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--space-2);
-  text-align: center;
 }
 
-.brand-profile__name {
-  font-size: var(--font-size-xl);
+.bp__brand-name {
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: #2D6A4F; /* green matching Figma */
   margin: 0;
 }
 
-.brand-profile__bio {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  max-width: 280px;
-}
-
-/* Stats */
-.brand-profile__stats {
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  padding: var(--space-3) 0;
-}
-
-.brand-profile__stat {
+.bp__stats-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 2px;
 }
 
-.brand-profile__stat-num {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
+.bp__stat-row {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.bp__stat-row strong {
   color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
 }
 
-.brand-profile__stat-label {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-}
-
-.brand-profile__stat-divider {
-  width: 1px;
-  height: 30px;
-  background: var(--color-divider);
-}
-
-/* Actions */
-.brand-profile__actions {
-  width: 100%;
+/* Social icons */
+.bp__social {
   display: flex;
-  flex-direction: column;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin-top: 2px;
 }
 
-.brand-profile__giveaway-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: var(--radius-xl);
-  border: 1.5px solid var(--color-border);
-  background: transparent;
+.bp__social-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: var(--font-weight-bold);
+}
+
+/* ── Action buttons — GREEN like Figma ─────────────── */
+.bp__actions {
+  display: flex;
+  gap: var(--space-3);
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.bp__btn {
+  flex: 1;
+  height: 42px;
+  border-radius: var(--radius-full);
+  border: none;
   font-family: var(--font-family);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: opacity 0.15s;
 }
 
-.brand-profile__giveaway-btn:active {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+.bp__btn:active { opacity: 0.8; }
+
+.bp__btn--subscribe {
+  background: #2D6A4F;
+  color: white;
 }
 
-/* Tabs */
-.brand-profile__tabs {
+.bp__btn--subscribed {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.bp__btn--message {
+  background: #2D6A4F;
+  color: white;
+}
+
+/* ── Tabs ───────────────────────────────────────────── */
+.bp__tabs {
   display: flex;
   border-bottom: 1px solid var(--color-divider);
   background: var(--color-surface);
 }
 
-.brand-profile__tab {
+.bp__tab {
   flex: 1;
   padding: var(--space-3) var(--space-4);
   border: none;
@@ -150,19 +174,121 @@
   transition: color 0.15s, border-color 0.15s;
 }
 
-.brand-profile__tab--active {
+.bp__tab--active {
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* Products list */
-.brand-profile__products {
+/* ── Review list ────────────────────────────────────── */
+.bp__review-list {
   padding: var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding-bottom: calc(var(--nav-height, 64px) + var(--space-4));
 }
 
+/* Review card — photo left + avatar overlay, text right (matches Figma) */
+.bp__review-card {
+  display: flex;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.1s;
+}
+
+.bp__review-card:active { transform: scale(0.98); }
+
+.bp__review-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+}
+
+.bp__review-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  display: block;
+}
+
+/* Reviewer avatar overlapping bottom-left corner of product photo */
+.bp__review-avatar {
+  position: absolute;
+  bottom: -6px;
+  left: -6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  object-fit: cover;
+  display: block;
+}
+
+.bp__review-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bp__review-product {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.bp__review-user {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+}
+
+.bp__review-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 2px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bp__review-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.bp__review-stars {
+  color: #F59E0B;
+  font-size: var(--font-size-xs);
+  letter-spacing: 1px;
+}
+
+.bp__review-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ── Product list ────────────────────────────────────── */
+.bp__product-list {
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: calc(var(--nav-height, 64px) + var(--space-4));
+}
+
+/* Keep existing product card styles */
 .brand-product-card {
   display: flex;
   align-items: center;
@@ -178,9 +304,7 @@
   transition: transform 0.12s ease;
 }
 
-.brand-product-card--clickable:active {
-  transform: scale(0.98);
-}
+.brand-product-card--clickable:active { transform: scale(0.98); }
 
 .brand-product-card__thumb {
   width: 56px;
@@ -233,65 +357,4 @@
   color: var(--color-text-placeholder);
   cursor: pointer;
   padding: 0 4px;
-}
-
-/* Reviews list */
-.brand-profile__reviews {
-  padding: var(--space-3) var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.brand-review-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-4);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.brand-review-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.brand-review-card__user {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
-
-.brand-review-card__right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1px;
-}
-
-.brand-review-card__stars {
-  color: var(--color-gold);
-  font-size: var(--font-size-sm);
-  letter-spacing: 1px;
-}
-
-.brand-review-card__date {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-}
-
-.brand-review-card__product {
-  font-size: var(--font-size-xs);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
-}
-
-.brand-review-card__text {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin-top: var(--space-1);
 }
