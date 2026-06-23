@@ -29,9 +29,10 @@ const MY_REVIEWS = [
 interface ProfileProps {
   tgUser?: TelegramUser | null;
   displayName?: string;
+  onEdit?: () => void;
 }
 
-export function Profile({ tgUser, displayName }: ProfileProps) {
+export function Profile({ tgUser, displayName, onEdit }: ProfileProps) {
   const tier: Tier = 'silver';
   const points = 1240;
 
@@ -64,7 +65,7 @@ export function Profile({ tgUser, displayName }: ProfileProps) {
 
         {/* Action buttons */}
         <div className="profile__actions">
-          <Button variant="secondary">Редактировать</Button>
+          <Button variant="secondary" onClick={onEdit}>Редактировать</Button>
           <Button variant="ghost">Поделиться</Button>
         </div>
       </div>

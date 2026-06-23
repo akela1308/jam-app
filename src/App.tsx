@@ -12,12 +12,33 @@ import { ProfileSetup } from './screens/ProfileSetup';
 import { UserProfile } from './screens/UserProfile';
 import { ReviewDetail } from './screens/ReviewDetail';
 import { ProductDetail, type Product } from './screens/ProductDetail';
+import { SearchResults } from './screens/SearchResults';
+import { EditProfile } from './screens/EditProfile';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
-type Screen = NavTab | 'brand' | 'giveaway' | 'setup' | 'user' | 'review' | 'product';
+type Screen =
+  | NavTab
+  | 'brand'
+  | 'giveaway'
+  | 'setup'
+  | 'user'
+  | 'review'
+  | 'product'
+  | 'search-results'
+  | 'edit-profile';
 
-// Определяем начальное состояние авторизации при запуске
+const CATEGORY_EMOJIS: Record<string, string> = {
+  Очищение: '🫧', Отшелушивание: '✨', Тонер: '💧', Сыворотка: '⚗️',
+  Маска: '🎭', Крем: '🫙', 'Крем для глаз': '👁️', 'Бальзам для губ': '💋', Солнцезащита: '☀️',
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  cleansing: 'Очищение', exfoliation: 'Отшелушивание', toner: 'Тонер',
+  serum: 'Сыворотка', mask: 'Маска', cream: 'Крем',
+  'eye-cream': 'Крем для глаз', 'lip-balm': 'Бальзам для губ', sunscreen: 'Солнцезащита',
+};
+
 const tgUser = getTelegramUser();
 
 function App() {
@@ -25,10 +46,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState<TelegramUser | null>(tgUser);
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Сыворотка');
 
   const activeTab = (['home', 'search', 'add', 'messages', 'profile'] as NavTab[]).includes(screen as NavTab)
     ? (screen as NavTab)
-    : 'home';
+    : screen === 'search-results' ? 'search' : 'home';
 
   if (!isRegistered) {
     return (
@@ -45,9 +67,9 @@ function App() {
     return <ProfileSetup onComplete={() => setScreen('home')} />;
   }
 
-  const displayName = currentUser
-    ? getDisplayName(currentUser)
-    : '@гость';
+  const displayName = currentUser ? getDisplayName(currentUser) : '@гость';
+
+  void setCurrentUser;
 
   const renderScreen = () => {
     switch (screen) {
@@ -60,10 +82,43 @@ function App() {
             onReview={() => setScreen('review')}
           />
         );
-      case 'search':   return <Search />;
+      case 'search':
+        return (
+          <Search
+            onCategorySelect={(id) => {
+              setSelectedCategory(CATEGORY_LABELS[id] ?? id);
+              setScreen('search-results');
+            }}
+          />
+        );
+      case 'search-results':
+        return (
+          <SearchResults
+            category={selectedCategory}
+            categoryEmoji={CATEGORY_EMOJIS[selectedCategory] ?? '🔍'}
+            onBack={() => setScreen('search')}
+            onProduct={() => setScreen('product')}
+            onBrand={() => setScreen('brand')}
+          />
+        );
       case 'add':      return <WriteReview onPublish={() => setScreen('home')} />;
       case 'messages': return <Messages onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
-      case 'profile':  return <Profile tgUser={currentUser} displayName={displayName} />;
+      case 'profile':
+        return (
+          <Profile
+            tgUser={currentUser}
+            displayName={displayName}
+            onEdit={() => setScreen('edit-profile')}
+          />
+        );
+      case 'edit-profile':
+        return (
+          <EditProfile
+            tgUser={currentUser}
+            onBack={() => setScreen('profile')}
+            onSave={() => setScreen('profile')}
+          />
+        );
       case 'brand':
         return (
           <BrandProfile
@@ -86,8 +141,6 @@ function App() {
       default: return <Home userName={displayName} onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} />;
     }
   };
-
-  void setCurrentUser;
 
   return (
     <>
