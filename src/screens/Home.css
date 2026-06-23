@@ -1,6 +1,10 @@
 .home__header {
   padding: var(--space-5) var(--space-4) var(--space-3);
   background: var(--color-surface);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
 }
 
 .home__logo {
@@ -8,6 +12,15 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
   letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.home__greeting-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home__section {

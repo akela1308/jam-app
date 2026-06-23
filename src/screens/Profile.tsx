@@ -3,6 +3,7 @@ import goldCoin from '../assets/coins/gold-coin.svg';
 import silverCoins from '../assets/coins/silver-coins.svg';
 import bronzeCoin from '../assets/coins/bronze-coin.svg';
 import avatar1 from '../assets/avatars/avatar-1.png';
+import type { TelegramUser } from '../hooks/useTelegramUser';
 import './Profile.css';
 
 type Tier = 'bronze' | 'silver' | 'gold';
@@ -25,22 +26,33 @@ const MY_REVIEWS = [
   { id: '3', product: 'AHA Toner', brand: 'med_b', rating: 5, date: '20 ноя', text: 'Лучший тонер с кислотами! Поры стали меньше, кожа ровнее.' },
 ];
 
-export function Profile() {
+interface ProfileProps {
+  tgUser?: TelegramUser | null;
+  displayName?: string;
+}
+
+export function Profile({ tgUser, displayName }: ProfileProps) {
   const tier: Tier = 'silver';
   const points = 1240;
+
+  const avatarSrc = tgUser?.photo_url ?? null;
+  const nameLabel = displayName ?? '@anna_skin';
 
   return (
     <div className="screen-content">
       {/* Header background */}
       <div className="profile__hero">
         <div className="profile__avatar-wrap">
-          <img src={avatar1} alt="Мой профиль" className="profile__avatar" />
+          {avatarSrc
+            ? <img src={avatarSrc} alt="Аватар" className="profile__avatar" referrerPolicy="no-referrer" />
+            : <img src={avatar1} alt="Мой профиль" className="profile__avatar" />
+          }
         </div>
       </div>
 
       {/* User info */}
       <div className="profile__info">
-        <h1 className="profile__name">@anna_skin</h1>
+        <h1 className="profile__name">{nameLabel}</h1>
         <p className="profile__bio">Люблю корейский уход 🌿 Делюсь честными отзывами</p>
 
         {/* Tier badge */}

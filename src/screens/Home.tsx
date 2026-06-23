@@ -2,6 +2,7 @@ import { CouponCard, type Coupon } from '../components/CouponCard';
 import './Home.css';
 
 interface HomeProps {
+  userName?: string;
   onBrand?: () => void;
   onGiveaway?: () => void;
   onReview?: () => void;
@@ -26,14 +27,15 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home({ onBrand, onGiveaway, onReview }: HomeProps) {
+export function Home({ userName, onBrand, onGiveaway, onReview }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
       <div className="home__header">
-        <div className="home__greeting">
-          <span className="home__logo">ДЖЕМ</span>
-        </div>
+        <span className="home__logo">ДЖЕМ</span>
+        {userName && (
+          <span className="home__greeting-name">Привет, {userName} 👋</span>
+        )}
       </div>
 
       {/* Coupons section */}
