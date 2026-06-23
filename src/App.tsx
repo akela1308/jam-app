@@ -18,13 +18,16 @@ import { SearchResults } from './screens/SearchResults';
 import { EditProfile } from './screens/EditProfile';
 import { Chat, type ChatContact } from './screens/Chat';
 import { Notifications } from './screens/Notifications';
+import { Coupons } from './screens/Coupons';
+import { Events } from './screens/Events';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
 type Screen =
   | NavTab
   | 'brand' | 'giveaway' | 'setup' | 'user' | 'review'
-  | 'product' | 'search-results' | 'edit-profile' | 'chat' | 'notifications';
+  | 'product' | 'search-results' | 'edit-profile' | 'chat' | 'notifications'
+  | 'coupons' | 'events';
 
 type AppPhase = 'splash' | 'onboarding' | 'app';
 
@@ -98,8 +101,14 @@ function App() {
             onGiveaway={() => setScreen('giveaway')}
             onReview={() => setScreen('review')}
             onNotifications={() => setScreen('notifications')}
+            onAllCoupons={() => setScreen('coupons')}
+            onAllEvents={() => setScreen('events')}
           />
         );
+      case 'coupons':
+        return <Coupons onBack={() => setScreen('home')} onBrand={() => setScreen('brand')} />;
+      case 'events':
+        return <Events onBack={() => setScreen('home')} onEvent={() => setScreen('giveaway')} onBrand={() => setScreen('brand')} />;
       case 'notifications':
         return <Notifications onBack={() => setScreen('home')} />;
       case 'search':

@@ -7,6 +7,8 @@ interface HomeProps {
   onGiveaway?: () => void;
   onReview?: () => void;
   onNotifications?: () => void;
+  onAllCoupons?: () => void;
+  onAllEvents?: () => void;
 }
 
 const COUPONS: Coupon[] = [
@@ -28,7 +30,7 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications }: HomeProps) {
+export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications, onAllCoupons, onAllEvents }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
@@ -49,7 +51,7 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications 
       <section className="home__section">
         <div className="section-header">
           <span className="section-title">Купоны</span>
-          <button className="see-all-link">Все купоны</button>
+          <button className="see-all-link" onClick={onAllCoupons}>Все купоны</button>
         </div>
         <div className="home__coupons-scroll">
           <div className="home__coupons-track">
@@ -64,7 +66,7 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications 
       <section className="home__section">
         <div className="section-header">
           <span className="section-title">Эвенты</span>
-          <button className="see-all-link">Все</button>
+          <button className="see-all-link" onClick={onAllEvents}>Все</button>
         </div>
         <div className="home__events">
           {EVENTS.map((ev) => (
