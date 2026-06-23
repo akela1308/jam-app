@@ -1,28 +1,30 @@
 import { useState } from 'react';
 import { Button } from '../components/Button';
+import type { Product } from './ProductDetail';
 import './BrandProfile.css';
 
 type BrandTab = 'products' | 'reviews';
 
-const PRODUCTS = [
-  { id: '1', name: 'Vitamin C Serum', rating: 4.8, reviews: 124, price: '2 490 ₽' },
-  { id: '2', name: 'Hydro Boost Cream', rating: 4.6, reviews: 89, price: '1 890 ₽' },
-  { id: '3', name: 'AHA/BHA Toner', rating: 4.9, reviews: 211, price: '1 490 ₽' },
-  { id: '4', name: 'Retinol Night Serum', rating: 4.7, reviews: 67, price: '3 290 ₽' },
+const PRODUCTS: Product[] = [
+  { id: '1', name: 'Vitamin C Serum',     rating: 4.8, reviews: 124, price: '2 490 ₽' },
+  { id: '2', name: 'Hydro Boost Cream',   rating: 4.6, reviews: 89,  price: '1 890 ₽' },
+  { id: '3', name: 'AHA/BHA Toner',       rating: 4.9, reviews: 211, price: '1 490 ₽' },
+  { id: '4', name: 'Retinol Night Serum', rating: 4.7, reviews: 67,  price: '3 290 ₽' },
 ];
 
 const REVIEWS = [
-  { id: '1', user: '@anna_skin', product: 'Vitamin C Serum', rating: 5, date: '15 дек', text: 'Лучшая сыворотка с витамином С! Кожа сияет уже через неделю.' },
+  { id: '1', user: '@anna_skin',   product: 'Vitamin C Serum',   rating: 5, date: '15 дек', text: 'Лучшая сыворотка с витамином С! Кожа сияет уже через неделю.' },
   { id: '2', user: '@kate_beauty', product: 'Hydro Boost Cream', rating: 4, date: '10 дек', text: 'Отличное увлажнение, но немного тяжёлый для лета.' },
-  { id: '3', user: '@user01', product: 'AHA/BHA Toner', rating: 5, date: '5 дек', text: 'Поры стали заметно меньше, текстура кожи выровнялась.' },
+  { id: '3', user: '@user01',      product: 'AHA/BHA Toner',     rating: 5, date: '5 дек',  text: 'Поры стали заметно меньше, текстура кожи выровнялась.' },
 ];
 
 interface BrandProfileProps {
   onBack?: () => void;
   onGiveaway?: () => void;
+  onProduct?: (p: Product) => void;
 }
 
-export function BrandProfile({ onBack, onGiveaway }: BrandProfileProps) {
+export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProps) {
   const [activeTab, setActiveTab] = useState<BrandTab>('products');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -98,7 +100,11 @@ export function BrandProfile({ onBack, onGiveaway }: BrandProfileProps) {
       {activeTab === 'products' ? (
         <div className="brand-profile__products">
           {PRODUCTS.map((p) => (
-            <div key={p.id} className="brand-product-card">
+            <div
+              key={p.id}
+              className="brand-product-card brand-product-card--clickable"
+              onClick={() => onProduct?.(p)}
+            >
               <div className="brand-product-card__thumb" />
               <div className="brand-product-card__body">
                 <span className="brand-product-card__name">{p.name}</span>

@@ -11,26 +11,25 @@ import { Giveaway } from './screens/Giveaway';
 import { ProfileSetup } from './screens/ProfileSetup';
 import { UserProfile } from './screens/UserProfile';
 import { ReviewDetail } from './screens/ReviewDetail';
+import { ProductDetail, type Product } from './screens/ProductDetail';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
-type Screen = NavTab | 'brand' | 'giveaway' | 'setup' | 'user' | 'review';
+type Screen = NavTab | 'brand' | 'giveaway' | 'setup' | 'user' | 'review' | 'product';
 
 // Определяем начальное состояние авторизации при запуске
 const tgUser = getTelegramUser();
 
 function App() {
-  // Если открыто внутри Telegram — сразу авторизованы
-  // Если в браузере — показываем регистрацию/гостевой вход
   const [isRegistered, setIsRegistered] = useState<boolean>(!!tgUser);
   const [currentUser, setCurrentUser] = useState<TelegramUser | null>(tgUser);
   const [screen, setScreen] = useState<Screen>('home');
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
 
   const activeTab = (['home', 'search', 'add', 'messages', 'profile'] as NavTab[]).includes(screen as NavTab)
     ? (screen as NavTab)
     : 'home';
 
-  // Не в Telegram и не авторизован — показываем регистрацию
   if (!isRegistered) {
     return (
       <Registration
@@ -42,12 +41,10 @@ function App() {
     );
   }
 
-  // После регистрации (только для браузера) — онбординг профиля
   if (screen === 'setup' && !tgUser) {
     return <ProfileSetup onComplete={() => setScreen('home')} />;
   }
 
-  // Имя для отображения: из Telegram или гостевое
   const displayName = currentUser
     ? getDisplayName(currentUser)
     : '@гость';
@@ -67,15 +64,29 @@ function App() {
       case 'add':      return <WriteReview onPublish={() => setScreen('home')} />;
       case 'messages': return <Messages onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
       case 'profile':  return <Profile tgUser={currentUser} displayName={displayName} />;
-      case 'brand':    return <BrandProfile onBack={() => setScreen('home')} onGiveaway={() => setScreen('giveaway')} />;
+      case 'brand':
+        return (
+          <BrandProfile
+            onBack={() => setScreen('home')}
+            onGiveaway={() => setScreen('giveaway')}
+            onProduct={(p) => { setSelectedProduct(p); setScreen('product'); }}
+          />
+        );
       case 'giveaway': return <Giveaway onBack={() => setScreen('home')} />;
       case 'user':     return <UserProfile onBack={() => setScreen('messages')} onMessage={() => setScreen('messages')} />;
       case 'review':   return <ReviewDetail onBack={() => setScreen('home')} onUserProfile={() => setScreen('user')} onBrandProfile={() => setScreen('brand')} />;
-      default:         return <Home userName={displayName} onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} />;
+      case 'product':
+        return (
+          <ProductDetail
+            product={selectedProduct}
+            onBack={() => setScreen('brand')}
+            onWriteReview={() => setScreen('add')}
+          />
+        );
+      default: return <Home userName={displayName} onBrand={() => setScreen('brand')} onGiveaway={() => setScreen('giveaway')} />;
     }
   };
 
-  // Подавляем предупреждение линтера — currentUser используется косвенно
   void setCurrentUser;
 
   return (

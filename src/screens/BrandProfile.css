@@ -173,6 +173,15 @@
   box-shadow: var(--shadow-card);
 }
 
+.brand-product-card--clickable {
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.brand-product-card--clickable:active {
+  transform: scale(0.98);
+}
+
 .brand-product-card__thumb {
   width: 56px;
   height: 56px;
