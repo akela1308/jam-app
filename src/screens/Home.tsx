@@ -9,6 +9,8 @@ interface HomeProps {
   onNotifications?: () => void;
   onAllCoupons?: () => void;
   onAllEvents?: () => void;
+  onBrands?: () => void;
+  onLeaderboard?: () => void;
 }
 
 const COUPONS: Coupon[] = [
@@ -30,7 +32,7 @@ const TOP_REVIEW = {
   text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
 };
 
-export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications, onAllCoupons, onAllEvents }: HomeProps) {
+export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications, onAllCoupons, onAllEvents, onBrands, onLeaderboard }: HomeProps) {
   return (
     <div className="screen-content">
       {/* Header */}
@@ -45,6 +47,22 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications,
             <span className="home__notif-badge" />
           </button>
         </div>
+      </div>
+
+      {/* Quick nav */}
+      <div className="home__quick-nav">
+        <button className="home__quick-btn" onClick={onBrands}>
+          <span className="home__quick-icon">🏷️</span>
+          <span className="home__quick-label">Бренды</span>
+        </button>
+        <button className="home__quick-btn" onClick={onLeaderboard}>
+          <span className="home__quick-icon">🏆</span>
+          <span className="home__quick-label">Лидерборд</span>
+        </button>
+        <button className="home__quick-btn" onClick={onBrand}>
+          <span className="home__quick-icon">🌸</span>
+          <span className="home__quick-label">Топ бренд</span>
+        </button>
       </div>
 
       {/* Coupons section */}

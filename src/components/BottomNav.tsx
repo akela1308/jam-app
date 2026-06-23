@@ -1,3 +1,4 @@
+import React from 'react';
 import './BottomNav.css';
 
 export type NavTab = 'home' | 'search' | 'add' | 'messages' | 'profile';
@@ -7,7 +8,7 @@ interface BottomNavProps {
   onTab: (tab: NavTab) => void;
 }
 
-const tabs: { id: NavTab; icon: string; label: string }[] = [
+const tabs: { id: NavTab; icon: React.ComponentType<{ active: boolean }>; label: string }[] = [
   { id: 'home', label: 'Главная', icon: HomeIcon },
   { id: 'search', label: 'Поиск', icon: SearchIcon },
   { id: 'add', label: 'Добавить', icon: AddIcon },

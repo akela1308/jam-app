@@ -22,6 +22,8 @@ import { Coupons } from './screens/Coupons';
 import { Events } from './screens/Events';
 import { PointsLevels } from './screens/PointsLevels';
 import { Settings } from './screens/Settings';
+import { Brands } from './screens/Brands';
+import { Leaderboard } from './screens/Leaderboard';
 import { getTelegramUser, getDisplayName, type TelegramUser } from './hooks/useTelegramUser';
 import './App.css';
 
@@ -29,7 +31,7 @@ type Screen =
   | NavTab
   | 'brand' | 'giveaway' | 'setup' | 'user' | 'review'
   | 'product' | 'search-results' | 'edit-profile' | 'chat' | 'notifications'
-  | 'coupons' | 'events' | 'points' | 'settings';
+  | 'coupons' | 'events' | 'points' | 'settings' | 'brands' | 'leaderboard';
 
 type AppPhase = 'splash' | 'onboarding' | 'app';
 
@@ -105,6 +107,8 @@ function App() {
             onNotifications={() => setScreen('notifications')}
             onAllCoupons={() => setScreen('coupons')}
             onAllEvents={() => setScreen('events')}
+            onBrands={() => setScreen('brands')}
+            onLeaderboard={() => setScreen('leaderboard')}
           />
         );
       case 'coupons':
@@ -177,6 +181,10 @@ function App() {
             onSave={() => setScreen('profile')}
           />
         );
+      case 'brands':
+        return <Brands onBack={() => setScreen('home')} onBrand={() => setScreen('brand')} />;
+      case 'leaderboard':
+        return <Leaderboard onBack={() => setScreen('home')} />;
       case 'brand':
         return (
           <BrandProfile
