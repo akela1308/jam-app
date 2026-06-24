@@ -33,6 +33,8 @@ interface EditProfileProps {
 }
 
 export function EditProfile({ tgUser, onBack, onSave }: EditProfileProps) {
+  const { t } = useLanguage();
+  const ep = t.editProfile;
   const initialName = tgUser?.username
     ? `@${tgUser.username}`
     : tgUser?.first_name ?? 'anna_skin';

@@ -39,6 +39,8 @@ interface PointsLevelsProps {
 }
 
 export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silver' }: PointsLevelsProps) {
+  const { t } = useLanguage();
+  const pl = t.pointsLevels;
   const tier = TIERS.find((t) => t.id === currentTier) ?? TIERS[1];
   const nextTier = TIERS[TIERS.indexOf(tier) + 1];
 

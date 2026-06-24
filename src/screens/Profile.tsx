@@ -62,7 +62,7 @@ export function Profile({ tgUser, displayName, onEdit, onSettings, onPoints }: P
 
         {/* Tier badge — tappable → Points screen */}
         <button className="profile__tier" onClick={onPoints}>
-          <img src={TIER_ICONS[tier]} alt={TIER_LABELS[tier]} className="profile__tier-icon" />
+          <img src={TIER_ICONS[tier]} alt={tier} className="profile__tier-icon" />
           <span className="profile__tier-label">{p.tierLabels[tier]}</span>
           <span className="profile__tier-points">{points.toLocaleString('ru')} {p.points}</span>
           <span className="profile__tier-arrow">›</span>

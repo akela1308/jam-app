@@ -83,18 +83,8 @@ const ALL_EVENTS: AppEvent[] = [
   },
 ];
 
-const STATUS_LABELS: Record<EventStatus, string> = {
-  active: 'Активный',
-  soon:   'Скоро',
-  ended:  'Завершён',
-};
 
-const FILTERS: { id: EventFilter; label: string }[] = [
-  { id: 'all',    label: ev.all },
-  { id: 'active', label: ev.active },
-  { id: 'soon',   label: ev.soon },
-  { id: 'ended',  label: ev.ended },
-];
+
 
 interface EventsProps {
   onBack?: () => void;
@@ -103,6 +93,14 @@ interface EventsProps {
 }
 
 export function Events({ onBack, onEvent, onBrand }: EventsProps) {
+  const { t } = useLanguage();
+  const ev = t.events;
+  const FILTERS: { id: EventFilter; label: string }[] = [
+    { id: 'all',    label: ev.all },
+    { id: 'active', label: ev.active },
+    { id: 'soon',   label: ev.soon },
+    { id: 'ended',  label: ev.ended },
+  ];
   const [filter, setFilter] = useState<EventFilter>('all');
   const [joined, setJoined] = useState<Set<string>>(
     new Set(ALL_EVENTS.filter((e) => e.joined).map((e) => e.id))

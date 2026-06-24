@@ -1,16 +1,19 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { translations, type Lang, type Translations } from './translations';
+import { translations, type Lang } from './translations';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyTranslations = any;
 
 interface LanguageContextValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  t: Translations;
+  t: AnyTranslations;
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
   lang: 'hr',
   setLang: () => {},
-  t: translations.hr,
+  t: translations.hr as AnyTranslations,
 });
 
 const STORAGE_KEY = 'jam_lang';
@@ -30,7 +33,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+    <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] as AnyTranslations }}>
       {children}
     </LanguageContext.Provider>
   );

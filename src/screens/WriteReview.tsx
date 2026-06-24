@@ -22,12 +22,8 @@ const PRODUCTS: Record<string, { id: string; name: string }[]> = {
   laneige:  [{ id: 'l1', name: 'Water Sleeping Mask' }, { id: 'l2', name: 'Lip Sleeping Mask' }],
 };
 
-const SKIN_TYPES = ['Нормальная', 'Сухая', 'Жирная', 'Комбинированная', 'Чувствительная'];
 
-const PROS_OPTIONS = ['Увлажняет', 'Не жирнит', 'Быстро впитывается', 'Приятный аромат', 'Экономично расходуется', 'Выравнивает тон'];
-const CONS_OPTIONS = ['Дорогой', 'Маленький объём', 'Резкий запах', 'Долгий эффект', 'Жирная текстура', 'Раздражает кожу'];
 
-const STAR_LABELS = wr.ratingLabels;
 
 /* ── Types ─────────────────────────────────────────────── */
 interface WriteReviewProps {
@@ -171,7 +167,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
               ))}
             </div>
             {displayRating > 0 && (
-              <span className="wr-star-label">{STAR_LABELS[displayRating]}</span>
+              <span className="wr-star-label">{wr.ratingLabels[displayRating]}</span>
             )}
           </div>
         </div>
@@ -214,7 +210,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.pros}</span>
           <div className="wr-tags">
-            {PROS_OPTIONS.map((tag) => (
+            {wr.prosTags.map((tag) => (
               <button
                 key={tag}
                 className={`wr-tag wr-tag--pro${pros.includes(tag) ? ' wr-tag--pro-active' : ''}`}
@@ -230,7 +226,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.cons}</span>
           <div className="wr-tags">
-            {CONS_OPTIONS.map((tag) => (
+            {wr.consTags.map((tag) => (
               <button
                 key={tag}
                 className={`wr-tag wr-tag--con${cons.includes(tag) ? ' wr-tag--con-active' : ''}`}
@@ -246,7 +242,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.skinType}</span>
           <div className="wr-tags">
-            {SKIN_TYPES.map((type) => (
+            {wr.skinTypes.map((type) => (
               <button
                 key={type}
                 className={`wr-tag${skinTypes.includes(type) ? ' wr-tag--skin-active' : ''}`}
