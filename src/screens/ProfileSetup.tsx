@@ -8,6 +8,7 @@ import social5 from '../assets/social/social-5.png';
 import social6 from '../assets/social/social-6.png';
 import social7 from '../assets/social/social-7.png';
 import social8 from '../assets/social/social-8.png';
+import { useLanguage } from '../i18n/LanguageContext';
 import './ProfileSetup.css';
 
 const SOCIALS = [
@@ -26,6 +27,8 @@ interface ProfileSetupProps {
 }
 
 export function ProfileSetup({ onComplete }: ProfileSetupProps) {
+  const { t } = useLanguage();
+  const ps = t.profileSetup;
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
   const [connected, setConnected] = useState<Set<string>>(new Set());
@@ -47,7 +50,7 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
         </div>
 
         <div className="setup-screen__body">
-          <h1 className="setup-screen__title">Привяжи соцсети</h1>
+          <h1 className="setup-screen__title">{ps.connectTitle}</h1>
           <p className="setup-screen__subtitle">
             Чтобы друзьям было проще тебя найти
           </p>
@@ -91,10 +94,10 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
           <div className="setup-screen__avatar">
             {username ? username.charAt(0).toUpperCase() : '?'}
           </div>
-          <button className="setup-screen__avatar-edit">Добавить фото</button>
+          <button className="setup-screen__avatar-edit">{ps.addPhoto}</button>
         </div>
 
-        <h1 className="setup-screen__title">Настрой профиль</h1>
+        <h1 className="setup-screen__title">{ps.title}</h1>
 
         <div className="setup-screen__fields">
           <div className="setup-screen__field">
@@ -103,7 +106,7 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
               <span className="setup-screen__at">@</span>
               <input
                 className="setup-screen__input setup-screen__input--with-prefix"
-                placeholder="твой_никнейм"
+                placeholder={ps.usernamePlaceholder}
                 value={username}
                 onChange={(e) => setUsername(e.target.value.replace(/\s/g, '_').toLowerCase())}
                 maxLength={30}
@@ -112,10 +115,10 @@ export function ProfileSetup({ onComplete }: ProfileSetupProps) {
           </div>
 
           <div className="setup-screen__field">
-            <label className="setup-screen__label">О себе</label>
+            <label className="setup-screen__label">{ps.bio}</label>
             <textarea
               className="setup-screen__textarea"
-              placeholder="Пару слов о себе и своём уходе..."
+              placeholder={ps.bioPlaceholder}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               rows={3}

@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/LanguageContext';
 import './CouponCard.css';
 
 export interface Coupon {
@@ -14,6 +15,8 @@ interface CouponCardProps {
 }
 
 export function CouponCard({ coupon }: CouponCardProps) {
+  const { t } = useLanguage();
+  const cc = t.couponCard;
   return (
     <div className="coupon-card" style={{ background: coupon.color }}>
       <div className="coupon-card__top">
@@ -22,10 +25,9 @@ export function CouponCard({ coupon }: CouponCardProps) {
       </div>
       <div className="coupon-card__title">{coupon.title}</div>
       <div className="coupon-card__footer">
-        <span className="coupon-card__expires">до {coupon.expiresAt}</span>
-        <button className="coupon-card__btn">Получить</button>
+        <span className="coupon-card__expires">{cc.validUntil} {coupon.expiresAt}</span>
+        <button className="coupon-card__btn">{cc.get}</button>
       </div>
-      {/* Decorative perforation dots */}
       <div className="coupon-card__perf" />
     </div>
   );

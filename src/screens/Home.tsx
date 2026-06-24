@@ -14,28 +14,45 @@ interface HomeProps {
   onLeaderboard?: () => void;
 }
 
-const COUPONS: Coupon[] = [
-  { id: '1', brand: 'blush', title: 'Holiday Cards\nby blush', discount: '-20%', expiresAt: '31 дек', color: 'linear-gradient(135deg, #DF1760 0%, #9B3864 100%)' },
-  { id: '2', brand: 'med_b', title: 'Осенняя\nколлекция', discount: '-15%', expiresAt: '15 янв', color: 'linear-gradient(135deg, #6c63ff 0%, #3f3d8b 100%)' },
-  { id: '3', brand: 'skinfood', title: 'Зимний уход\nдля лица', discount: '-30%', expiresAt: '1 фев', color: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' },
+const COUPON_COLORS = [
+  'linear-gradient(135deg, #DF1760 0%, #9B3864 100%)',
+  'linear-gradient(135deg, #6c63ff 0%, #3f3d8b 100%)',
+  'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
 ];
-
-const EVENTS = [
-  { id: '1', brand: 'blush', title: 'Розыгрыш наборов\nпо уходу за кожей', date: '1–15 янв', participants: 234 },
-  { id: '2', brand: 'med_b', title: 'Марафон красоты\nс подарками', date: '10–20 янв', participants: 189 },
-];
-
-const TOP_REVIEW = {
-  user: '@anna_skin',
-  product: 'Vitamin C Serum',
-  brand: 'Skinfood',
-  rating: 5,
-  text: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
-};
+const COUPON_BRANDS = ['blush', 'med_b', 'skinfood'];
+const COUPON_DISCOUNTS = ['-20%', '-15%', '-30%'];
+const EVENT_PARTICIPANTS = [234, 189];
 
 export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications, onAllCoupons, onAllEvents, onBrands, onLeaderboard }: HomeProps) {
   const { t } = useLanguage();
   const h = t.home;
+  const hd = t.homeData;
+
+  const COUPONS: Coupon[] = (hd.coupons as Array<{title:string;expires:string}>).map((c, i) => ({
+    id: String(i + 1),
+    brand: COUPON_BRANDS[i],
+    title: c.title,
+    discount: COUPON_DISCOUNTS[i],
+    expiresAt: c.expires,
+    color: COUPON_COLORS[i],
+  }));
+
+  const EVENTS = (hd.events as Array<{title:string;date:string;brand:string}>).map((e, i) => ({
+    id: String(i + 1),
+    brand: e.brand,
+    title: e.title,
+    date: e.date,
+    participants: EVENT_PARTICIPANTS[i],
+  }));
+
+  const TOP_REVIEW = {
+    user: '@anna_skin',
+    product: 'Vitamin C Serum',
+    brand: 'Skinfood',
+    rating: 5,
+    text: hd.reviewText as string,
+  };
+
   return (
     <div className="screen-content">
       {/* Header */}

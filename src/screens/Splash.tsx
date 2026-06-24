@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Splash.css';
 
 interface SplashProps {
@@ -6,6 +7,8 @@ interface SplashProps {
 }
 
 export function Splash({ onDone }: SplashProps) {
+  const { t } = useLanguage();
+  const s = t.splash;
   const [phase, setPhase] = useState<'logo' | 'tagline' | 'button'>('logo');
 
   useEffect(() => {
@@ -16,37 +19,32 @@ export function Splash({ onDone }: SplashProps) {
 
   return (
     <div className="splash">
-      {/* Background blobs */}
       <div className="splash__blob splash__blob--1" />
       <div className="splash__blob splash__blob--2" />
       <div className="splash__blob splash__blob--3" />
 
       <div className="splash__content">
-        {/* Logo */}
         <div className={`splash__logo-wrap${phase !== 'logo' ? ' splash__logo-wrap--up' : ''}`}>
           <div className="splash__logo-circle">
-            <span className="splash__logo-text">ДЖЕМ</span>
+            <span className="splash__logo-text">{t.appName}</span>
           </div>
           <div className="splash__logo-glow" />
         </div>
 
-        {/* Tagline */}
         <div className={`splash__tagline${phase === 'tagline' || phase === 'button' ? ' splash__tagline--visible' : ''}`}>
-          <p className="splash__tagline-main">Твой beauty-дневник</p>
-          <p className="splash__tagline-sub">Честные отзывы · Купоны · Сообщество</p>
+          <p className="splash__tagline-main">{s.tagline}</p>
+          <p className="splash__tagline-sub">{s.subtitle}</p>
         </div>
 
-        {/* Button */}
         <div className={`splash__btn-wrap${phase === 'button' ? ' splash__btn-wrap--visible' : ''}`}>
           <button className="splash__btn" onClick={onDone}>
-            Начать
+            {s.start}
             <ArrowIcon />
           </button>
-          <p className="splash__terms">Продолжая, вы принимаете условия использования</p>
+          <p className="splash__terms">{s.terms}</p>
         </div>
       </div>
 
-      {/* Bottom decoration */}
       <div className="splash__bottom-dots">
         <span className="splash__dot splash__dot--active" />
         <span className="splash__dot" />

@@ -262,6 +262,49 @@ export const translations = {
       changePhoto: 'Promijeni fotografiju',
     },
 
+
+    // Splash
+    splash: {
+      tagline: 'Tvoj beauty-dnevnik',
+      subtitle: 'Iskrene recenzije · Kuponi · Zajednica',
+      start: 'Počni',
+      terms: 'Nastavkom prihvaćaš uvjete korištenja',
+    },
+
+    // ProfileSetup
+    profileSetup: {
+      addPhoto: 'Dodaj fotografiju',
+      title: 'Postavi profil',
+      usernamePlaceholder: 'tvoj_nadimak',
+      bio: 'O meni',
+      bioPlaceholder: 'Par riječi o sebi i njezi...',
+      next: 'Dalje',
+      skip: 'Preskoči',
+      connectTitle: 'Poveži društvene mreže',
+      connectSubtitle: 'Da bi te prijatelji lakše pronašli',
+      done: 'Gotovo',
+    },
+
+    // CouponCard
+    couponCard: {
+      validUntil: 'vrijedi do',
+      get: 'Preuzmi',
+    },
+
+    // Home data (bilingual content)
+    homeData: {
+      coupons: [
+        { title: 'Holiday Cards\nby blush', expires: '31 pro' },
+        { title: 'Jesenska\nkolekcija', expires: '15 sij' },
+        { title: 'Zimska njega\nlica', expires: '1 velj' },
+      ],
+      events: [
+        { title: 'Nagradna igra\nskupova za njegu', date: '1–15 sij', brand: 'blush' },
+        { title: 'Maraton ljepote\ns darovima', date: '10–20 sij', brand: 'med_b' },
+      ],
+      reviewText: 'Koristim već mjesec dana — koža je postala primjetno ravnomjernija i svjetlija. Vitamin C u ovom serumu odlično djeluje!',
+    },
+
     // Common
     common: {
       back: '←',
@@ -518,6 +561,49 @@ export const translations = {
       skinType: 'Тип кожи',
       save: 'Сохранить',
       changePhoto: 'Изменить фото',
+    },
+
+
+    // Splash
+    splash: {
+      tagline: 'Твой beauty-дневник',
+      subtitle: 'Честные отзывы · Купоны · Сообщество',
+      start: 'Начать',
+      terms: 'Продолжая, вы принимаете условия использования',
+    },
+
+    // ProfileSetup
+    profileSetup: {
+      addPhoto: 'Добавить фото',
+      title: 'Настрой профиль',
+      usernamePlaceholder: 'твой_никнейм',
+      bio: 'О себе',
+      bioPlaceholder: 'Пару слов о себе и своём уходе...',
+      next: 'Далее',
+      skip: 'Пропустить',
+      connectTitle: 'Привяжи соцсети',
+      connectSubtitle: 'Чтобы друзьям было проще тебя найти',
+      done: 'Готово',
+    },
+
+    // CouponCard
+    couponCard: {
+      validUntil: 'до',
+      get: 'Получить',
+    },
+
+    // Home data
+    homeData: {
+      coupons: [
+        { title: 'Holiday Cards\nby blush', expires: '31 дек' },
+        { title: 'Осенняя\nколлекция', expires: '15 янв' },
+        { title: 'Зимний уход\nдля лица', expires: '1 фев' },
+      ],
+      events: [
+        { title: 'Розыгрыш наборов\nпо уходу за кожей', date: '1–15 янв', brand: 'blush' },
+        { title: 'Марафон красоты\nс подарками', date: '10–20 янв', brand: 'med_b' },
+      ],
+      reviewText: 'Пользуюсь уже месяц — кожа стала заметно ровнее и светлее. Витамин С в этой сыворотке работает отлично!',
     },
 
     common: {
