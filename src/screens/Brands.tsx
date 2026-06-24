@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Brands.css';
 
 interface Brand {
@@ -42,6 +43,8 @@ interface BrandsProps {
 }
 
 export function Brands({ onBack, onBrand }: BrandsProps) {
+  const { t } = useLanguage();
+  const brt = t.brands;
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('Все');
   const [sort, setSort] = useState<SortId>('followers');
@@ -76,7 +79,7 @@ export function Brands({ onBack, onBrand }: BrandsProps) {
       {/* Header */}
       <div className="brands__header">
         {onBack && <button className="brands__back" onClick={onBack}>←</button>}
-        <h1 className="brands__title">Бренды</h1>
+        <h1 className="brands__title">{brt.title}</h1>
         <span className="brands__count">{filtered.length}</span>
       </div>
 
@@ -85,7 +88,7 @@ export function Brands({ onBack, onBrand }: BrandsProps) {
         <SearchIcon />
         <input
           className="brands__search"
-          placeholder="Поиск брендов..."
+          placeholder={brt.search}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -145,7 +148,7 @@ export function Brands({ onBack, onBrand }: BrandsProps) {
                   <div className="brand-card__meta">
                     <span className="brand-card__followers">{formatNum(brand.followers)} подп.</span>
                     <span className="brand-card__sep">·</span>
-                    <span className="brand-card__reviews">{brand.reviewCount} отзывов</span>
+                    <span className="brand-card__reviews">{brand.reviewCount}} {brt.reviews}</span>
                   </div>
                   <div className="brand-card__tags">
                     {brand.tags.map((tag) => (

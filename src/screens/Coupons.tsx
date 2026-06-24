@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Coupons.css';
 
 interface Coupon {
@@ -24,7 +25,7 @@ const ALL_COUPONS: Coupon[] = [
   { id: '8', brand: 'skinfood', title: 'Очищающий гель',           discount: '-18%', expiresAt: '15 фев', code: 'CLEAN18',  color: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',   category: 'Очищение' },
 ];
 
-const BRANDS = ['Все', 'blush', 'med_b', 'skinfood'];
+const BRANDS = ['all', 'blush', 'med_b', 'skinfood'];
 
 interface CouponsProps {
   onBack?: () => void;
@@ -32,13 +33,15 @@ interface CouponsProps {
 }
 
 export function Coupons({ onBack, onBrand }: CouponsProps) {
+  const { t } = useLanguage();
+  const cp = t.coupons;
   const [query, setQuery] = useState('');
-  const [brand, setBrand] = useState('Все');
+  const [brand, setBrand] = useState('all');
   const [activated, setActivated] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState<string | null>(null);
 
   const filtered = ALL_COUPONS.filter((c) => {
-    const matchBrand = brand === 'Все' || c.brand === brand;
+    const matchBrand = brand === 'all' || c.brand === brand;
     const matchQuery = query === '' ||
       c.title.toLowerCase().includes(query.toLowerCase()) ||
       c.brand.toLowerCase().includes(query.toLowerCase()) ||
@@ -63,7 +66,7 @@ export function Coupons({ onBack, onBrand }: CouponsProps) {
         {onBack && (
           <button className="coupons__back" onClick={onBack}>←</button>
         )}
-        <h1 className="coupons__title">Купоны</h1>
+        <h1 className="coupons__title">{cp.title}</h1>
         <span className="coupons__count">{active.length} активных</span>
       </div>
 
@@ -72,7 +75,7 @@ export function Coupons({ onBack, onBrand }: CouponsProps) {
         <SearchIcon />
         <input
           className="coupons__search"
-          placeholder="Поиск купонов..."
+          placeholder={cp.search}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -115,7 +118,7 @@ export function Coupons({ onBack, onBrand }: CouponsProps) {
       {/* Used coupons */}
       {used.length > 0 && (
         <div className="coupons__section">
-          <span className="coupons__section-label">Использованные</span>
+          <span className="coupons__section-label">{cp.used}</span>
           <div className="coupons__list">
             {used.map((c) => (
               <CouponCard

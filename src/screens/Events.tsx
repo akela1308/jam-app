@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Events.css';
 
 type EventStatus = 'active' | 'soon' | 'ended';
@@ -89,10 +90,10 @@ const STATUS_LABELS: Record<EventStatus, string> = {
 };
 
 const FILTERS: { id: EventFilter; label: string }[] = [
-  { id: 'all',    label: 'Все' },
-  { id: 'active', label: 'Активные' },
-  { id: 'soon',   label: 'Скоро' },
-  { id: 'ended',  label: 'Завершённые' },
+  { id: 'all',    label: ev.all },
+  { id: 'active', label: ev.active },
+  { id: 'soon',   label: ev.soon },
+  { id: 'ended',  label: ev.ended },
 ];
 
 interface EventsProps {
@@ -126,7 +127,7 @@ export function Events({ onBack, onEvent, onBrand }: EventsProps) {
         {onBack && (
           <button className="events__back" onClick={onBack}>←</button>
         )}
-        <h1 className="events__title">Эвенты</h1>
+        <h1 className="events__title">{ev.title}</h1>
       </div>
 
       {/* Filter tabs */}

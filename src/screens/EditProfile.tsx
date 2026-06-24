@@ -10,6 +10,7 @@ import social6 from '../assets/social/social-6.png';
 import social7 from '../assets/social/social-7.png';
 import social8 from '../assets/social/social-8.png';
 import type { TelegramUser } from '../hooks/useTelegramUser';
+import { useLanguage } from '../i18n/LanguageContext';
 import './EditProfile.css';
 
 const SKIN_TYPES = ['Сухая', 'Жирная', 'Комбинированная', 'Нормальная', 'Чувствительная'];
@@ -91,7 +92,7 @@ export function EditProfile({ tgUser, onBack, onSave }: EditProfileProps) {
             <CameraIcon />
           </button>
         </div>
-        <span className="ep__avatar-hint">Изменить фото</span>
+        <span className="ep__avatar-hint">{ep.changePhoto}</span>
       </div>
 
       {/* Fields */}

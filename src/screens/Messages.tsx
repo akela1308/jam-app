@@ -6,6 +6,7 @@ import avatar2 from '../assets/avatars/avatar-2.png';
 import avatar3 from '../assets/avatars/avatar-3.png';
 import avatar4 from '../assets/avatars/avatar-4.png';
 import avatar5 from '../assets/avatars/avatar-5.png';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Messages.css';
 
 type Tab = 'all' | 'brands' | 'users';
@@ -19,11 +20,7 @@ const ALL_MESSAGES: Message[] = [
   { id: '6', name: '@skinfood_ru',      preview: 'Скидка 30% только сегодня',      time: 'Пн',    avatarUrl: undefined, isUnread: true, isBrand: true },
 ];
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'all',    label: 'Все' },
-  { id: 'brands', label: 'Бренды' },
-  { id: 'users',  label: 'Пользователи' },
-];
+
 
 interface MessagesProps {
   onUserProfile?: () => void;
@@ -32,6 +29,13 @@ interface MessagesProps {
 }
 
 export function Messages({ onUserProfile, onBrandProfile, onChat }: MessagesProps) {
+  const { t } = useLanguage();
+  const m = t.messages;
+  const TABS: { id: Tab; label: string }[] = [
+    { id: 'all',    label: m.all },
+    { id: 'brands', label: m.brands },
+    { id: 'users',  label: m.users },
+  ];
   const [activeTab, setActiveTab] = useState<Tab>('all');
 
   const filtered = ALL_MESSAGES.filter((m) => {

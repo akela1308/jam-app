@@ -4,6 +4,7 @@ import avatar2 from '../assets/avatars/avatar-2.png';
 import avatar3 from '../assets/avatars/avatar-3.png';
 import avatar4 from '../assets/avatars/avatar-4.png';
 import avatar5 from '../assets/avatars/avatar-5.png';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Notifications.css';
 
 type NotifType = 'like' | 'follow' | 'reply' | 'coupon' | 'mention' | 'giveaway';
@@ -122,6 +123,8 @@ interface NotificationsProps {
 }
 
 export function Notifications({ onBack }: NotificationsProps) {
+  const { t } = useLanguage();
+  const n = t.notifications;
   const [notifs, setNotifs] = useState({
     today: TODAY,
     yesterday: YESTERDAY,
@@ -150,7 +153,7 @@ export function Notifications({ onBack }: NotificationsProps) {
         {onBack && (
           <button className="notifs__back" onClick={onBack}>←</button>
         )}
-        <h1 className="notifs__title">Уведомления</h1>
+        <h1 className="notifs__title">{n.title}</h1>
         {unreadCount > 0 && (
           <button className="notifs__mark-all" onClick={markAllRead}>
             Прочитать все

@@ -173,3 +173,30 @@
   background: #ef4444;
   color: white;
 }
+
+/* Language switcher */
+.settings__lang-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px var(--space-4);
+}
+
+.settings__lang-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings__lang-btn--active {
+  border-color: var(--color-primary);
+  background: rgba(223, 23, 96, 0.06);
+  color: var(--color-primary);
+}

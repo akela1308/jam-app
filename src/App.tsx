@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LanguageProvider } from './i18n/LanguageContext';
 import { BottomNav, type NavTab } from './components/BottomNav';
 import { Splash } from './screens/Splash';
 import { Onboarding } from './screens/Onboarding';
@@ -209,10 +210,12 @@ function App() {
   };
 
   return (
-    <>
-      {renderScreen()}
-      <BottomNav active={activeTab} onTab={(tab) => setScreen(tab)} />
-    </>
+    <LanguageProvider>
+      <>
+        {renderScreen()}
+        <BottomNav active={activeTab} onTab={(tab) => setScreen(tab)} />
+      </>
+    </LanguageProvider>
   );
 }
 

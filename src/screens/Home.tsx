@@ -1,4 +1,5 @@
 import { CouponCard, type Coupon } from '../components/CouponCard';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Home.css';
 
 interface HomeProps {
@@ -33,16 +34,18 @@ const TOP_REVIEW = {
 };
 
 export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications, onAllCoupons, onAllEvents, onBrands, onLeaderboard }: HomeProps) {
+  const { t } = useLanguage();
+  const h = t.home;
   return (
     <div className="screen-content">
       {/* Header */}
       <div className="home__header">
-        <span className="home__logo">ДЖЕМ</span>
+        <span className="home__logo">{t.appName}</span>
         <div className="home__header-right">
           {userName && (
-            <span className="home__greeting-name">Привет, {userName} 👋</span>
+            <span className="home__greeting-name">{h.greeting} {userName} 👋</span>
           )}
-          <button className="home__notif-btn" onClick={onNotifications} aria-label="Уведомления">
+          <button className="home__notif-btn" onClick={onNotifications} aria-label={h.notifications}>
             <BellIcon />
             <span className="home__notif-badge" />
           </button>
@@ -53,23 +56,23 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications,
       <div className="home__quick-nav">
         <button className="home__quick-btn" onClick={onBrands}>
           <span className="home__quick-icon">🏷️</span>
-          <span className="home__quick-label">Бренды</span>
+          <span className="home__quick-label">{h.brands}</span>
         </button>
         <button className="home__quick-btn" onClick={onLeaderboard}>
           <span className="home__quick-icon">🏆</span>
-          <span className="home__quick-label">Лидерборд</span>
+          <span className="home__quick-label">{h.leaderboard}</span>
         </button>
         <button className="home__quick-btn" onClick={onBrand}>
           <span className="home__quick-icon">🌸</span>
-          <span className="home__quick-label">Топ бренд</span>
+          <span className="home__quick-label">{h.topBrand}</span>
         </button>
       </div>
 
       {/* Coupons section */}
       <section className="home__section">
         <div className="section-header">
-          <span className="section-title">Купоны</span>
-          <button className="see-all-link" onClick={onAllCoupons}>Все купоны</button>
+          <span className="section-title">{h.coupons}</span>
+          <button className="see-all-link" onClick={onAllCoupons}>{h.allCoupons}</button>
         </div>
         <div className="home__coupons-scroll">
           <div className="home__coupons-track">
@@ -83,8 +86,8 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications,
       {/* Events section */}
       <section className="home__section">
         <div className="section-header">
-          <span className="section-title">Эвенты</span>
-          <button className="see-all-link" onClick={onAllEvents}>Все</button>
+          <span className="section-title">{h.events}</span>
+          <button className="see-all-link" onClick={onAllEvents}>{h.allEvents}</button>
         </div>
         <div className="home__events">
           {EVENTS.map((ev) => (
@@ -95,8 +98,8 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications,
                 <span className="event-card__date">{ev.date}</span>
               </div>
               <div className="event-card__right">
-                <span className="event-card__participants">{ev.participants} участников</span>
-                <button className="event-card__join-btn" onClick={onGiveaway}>Участвовать</button>
+                <span className="event-card__participants">{ev.participants} {h.participants}</span>
+                <button className="event-card__join-btn" onClick={onGiveaway}>{h.join}</button>
               </div>
             </div>
           ))}
@@ -106,7 +109,7 @@ export function Home({ userName, onBrand, onGiveaway, onReview, onNotifications,
       {/* Top review */}
       <section className="home__section">
         <div className="section-header">
-          <span className="section-title">Отзыв дня</span>
+          <span className="section-title">{h.reviewOfDay}</span>
         </div>
         <div className="top-review" onClick={onReview} style={{cursor:'pointer'}}>
           <div className="top-review__header">

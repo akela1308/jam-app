@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './BottomNav.css';
 
 export type NavTab = 'home' | 'search' | 'add' | 'messages' | 'profile';
@@ -8,15 +9,18 @@ interface BottomNavProps {
   onTab: (tab: NavTab) => void;
 }
 
-const tabs: { id: NavTab; icon: React.ComponentType<{ active: boolean }>; label: string }[] = [
-  { id: 'home', label: 'Главная', icon: HomeIcon },
-  { id: 'search', label: 'Поиск', icon: SearchIcon },
-  { id: 'add', label: 'Добавить', icon: AddIcon },
-  { id: 'messages', label: 'Сообщения', icon: ChatIcon },
-  { id: 'profile', label: 'Профиль', icon: ProfileIcon },
-];
-
 export function BottomNav({ active, onTab }: BottomNavProps) {
+  const { t } = useLanguage();
+  const n = t.nav;
+
+  const tabs: { id: NavTab; icon: React.ComponentType<{ active: boolean }>; label: string }[] = [
+    { id: 'home',     label: n.home,     icon: HomeIcon },
+    { id: 'search',   label: n.search,   icon: SearchIcon },
+    { id: 'add',      label: n.add,      icon: AddIcon },
+    { id: 'messages', label: n.messages, icon: ChatIcon },
+    { id: 'profile',  label: n.profile,  icon: ProfileIcon },
+  ];
+
   return (
     <nav className="bottom-nav">
       {tabs.map(({ id, label, icon: Icon }) => (
@@ -32,8 +36,6 @@ export function BottomNav({ active, onTab }: BottomNavProps) {
     </nav>
   );
 }
-
-/* ── SVG Icons ── */
 
 function HomeIcon({ active }: { active: boolean }) {
   return (
@@ -60,10 +62,8 @@ function SearchIcon({ active }: { active: boolean }) {
 }
 
 function AddIcon(_: { active: boolean }) {
-  // Flower/asterisk shape matching Figma design
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-      {/* 8-petal flower / asterisk */}
       <path d="M14 4C14 4 13 8 14 10C15 8 14 4 14 4Z" fill="var(--color-primary)" />
       <path d="M14 24C14 24 15 20 14 18C13 20 14 24 14 24Z" fill="var(--color-primary)" />
       <path d="M4 14C4 14 8 15 10 14C8 13 4 14 4 14Z" fill="var(--color-primary)" />

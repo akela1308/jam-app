@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TextInput } from '../components/TextInput';
 import { Button } from '../components/Button';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Registration.css';
 
 interface RegistrationProps {
@@ -8,6 +9,8 @@ interface RegistrationProps {
 }
 
 export function Registration({ onComplete }: RegistrationProps) {
+  const { t } = useLanguage();
+  const r = t.registration;
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -21,31 +24,30 @@ export function Registration({ onComplete }: RegistrationProps) {
 
   return (
     <div className="reg-screen">
-      {/* Logo */}
       <div className="reg-screen__logo">
-        <span className="reg-screen__logo-text">ДЖЕМ</span>
+        <span className="reg-screen__logo-text">{t.appName}</span>
         <span className="reg-screen__logo-dot" />
       </div>
 
-      <h1 className="reg-screen__title">Регистрация</h1>
+      <h1 className="reg-screen__title">{r.title}</h1>
 
       <form className="reg-screen__form" onSubmit={handleSubmit}>
         <TextInput
-          label="Электронная почта"
-          placeholder="example@site.com"
+          label={r.email}
+          placeholder={r.emailPlaceholder}
           type="email"
           value={email}
           onChange={setEmail}
         />
         <TextInput
-          label="Как тебя зовут?"
-          placeholder="Имя"
+          label={r.name}
+          placeholder={r.namePlaceholder}
           value={name}
           onChange={setName}
         />
         <TextInput
-          label="Придумай пароль"
-          placeholder="Минимум 8 символов"
+          label={r.password}
+          placeholder={r.passwordPlaceholder}
           type="password"
           value={password}
           onChange={setPassword}
@@ -53,17 +55,17 @@ export function Registration({ onComplete }: RegistrationProps) {
 
         <div className="reg-screen__actions">
           <Button type="submit" fullWidth>
-            Создать профиль
+            {r.submit}
           </Button>
           <p className="reg-screen__hint">
-            Уже есть аккаунт?{' '}
-            <button type="button" className="reg-screen__link">Войти</button>
+            {r.alreadyHaveAccount}{' '}
+            <button type="button" className="reg-screen__link">{r.login}</button>
           </p>
           <div className="reg-screen__divider">
-            <span>или</span>
+            <span>{r.or}</span>
           </div>
           <button type="button" className="reg-screen__demo-btn" onClick={onComplete}>
-            Войти как гость
+            {r.guestLogin}
           </button>
         </div>
       </form>

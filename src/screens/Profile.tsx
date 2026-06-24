@@ -4,6 +4,7 @@ import silverCoins from '../assets/coins/silver-coins.svg';
 import bronzeCoin from '../assets/coins/bronze-coin.svg';
 import avatar1 from '../assets/avatars/avatar-1.png';
 import type { TelegramUser } from '../hooks/useTelegramUser';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Profile.css';
 
 type Tier = 'bronze' | 'silver' | 'gold';
@@ -14,11 +15,7 @@ const TIER_ICONS: Record<Tier, string> = {
   gold: goldCoin,
 };
 
-const TIER_LABELS: Record<Tier, string> = {
-  bronze: 'Бронза',
-  silver: 'Серебро',
-  gold: 'Золото',
-};
+
 
 const MY_REVIEWS = [
   { id: '1', product: 'Vitamin C Serum', brand: 'Skinfood', rating: 5, date: '15 дек', text: 'Отличная сыворотка — кожа стала заметно ровнее через 3 недели.' },
@@ -35,6 +32,8 @@ interface ProfileProps {
 }
 
 export function Profile({ tgUser, displayName, onEdit, onSettings, onPoints }: ProfileProps) {
+  const { t } = useLanguage();
+  const p = t.profile;
   const tier: Tier = 'silver';
   const points = 1240;
 
@@ -64,15 +63,15 @@ export function Profile({ tgUser, displayName, onEdit, onSettings, onPoints }: P
         {/* Tier badge — tappable → Points screen */}
         <button className="profile__tier" onClick={onPoints}>
           <img src={TIER_ICONS[tier]} alt={TIER_LABELS[tier]} className="profile__tier-icon" />
-          <span className="profile__tier-label">{TIER_LABELS[tier]}</span>
-          <span className="profile__tier-points">{points.toLocaleString('ru')} баллов</span>
+          <span className="profile__tier-label">{p.tierLabels[tier]}</span>
+          <span className="profile__tier-points">{points.toLocaleString('ru')} {p.points}</span>
           <span className="profile__tier-arrow">›</span>
         </button>
 
         {/* Action buttons */}
         <div className="profile__actions">
-          <Button variant="secondary" onClick={onEdit}>Редактировать</Button>
-          <Button variant="ghost">Поделиться</Button>
+          <Button variant="secondary" onClick={onEdit}>{p.edit}</Button>
+          <Button variant="ghost">{p.share}</Button>
         </div>
       </div>
 
@@ -80,17 +79,17 @@ export function Profile({ tgUser, displayName, onEdit, onSettings, onPoints }: P
       <div className="profile__stats">
         <div className="profile__stat">
           <span className="profile__stat-num">48</span>
-          <span className="profile__stat-label">Подписчики</span>
+          <span className="profile__stat-label">{p.followers}</span>
         </div>
         <div className="profile__stat-divider" />
         <div className="profile__stat">
           <span className="profile__stat-num">12</span>
-          <span className="profile__stat-label">Подписки</span>
+          <span className="profile__stat-label">{p.following}</span>
         </div>
         <div className="profile__stat-divider" />
         <div className="profile__stat">
           <span className="profile__stat-num">{MY_REVIEWS.length}</span>
-          <span className="profile__stat-label">Отзывы</span>
+          <span className="profile__stat-label">{p.reviews}</span>
         </div>
       </div>
 

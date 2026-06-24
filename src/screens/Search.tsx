@@ -1,18 +1,7 @@
 import { useState } from 'react';
 import { SearchFilters, type Filters } from '../components/SearchFilters';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Search.css';
-
-const CATEGORIES = [
-  { id: 'cleansing',   label: 'Очищение',        photo: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&q=80' },
-  { id: 'exfoliation', label: 'Пилинг',          photo: 'https://images.unsplash.com/photo-1631390930571-ec7aba5310a4?w=300&q=80' },
-  { id: 'toner',       label: 'Тонер',           photo: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&q=80' },
-  { id: 'serum',       label: 'Сыворотка',       photo: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80' },
-  { id: 'mask',        label: 'Маска',           photo: 'https://images.unsplash.com/photo-1600857544200-b2f468e3ef97?w=300&q=80' },
-  { id: 'cream',       label: 'Крем',            photo: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300&q=80' },
-  { id: 'eye-cream',   label: 'Крем для глаз',  photo: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&q=80' },
-  { id: 'lip-balm',    label: 'Бальзам для губ', photo: 'https://images.unsplash.com/photo-1586495777744-4e6232bf5e25?w=300&q=80' },
-  { id: 'sunscreen',   label: 'SPF защита',      photo: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=300&q=80' },
-];
 
 const DEFAULT_FILTERS: Filters = { skinTypes: [], minRating: 0, category: '' };
 
@@ -21,6 +10,22 @@ interface SearchProps {
 }
 
 export function Search({ onCategorySelect }: SearchProps) {
+  const { t } = useLanguage();
+  const s = t.search;
+  const sc = s.categories;
+
+  const CATEGORIES = [
+    { id: 'cleansing',   label: sc.cleansing,   photo: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&q=80' },
+    { id: 'exfoliation', label: sc.exfoliation, photo: 'https://images.unsplash.com/photo-1631390930571-ec7aba5310a4?w=300&q=80' },
+    { id: 'toner',       label: sc.toner,       photo: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&q=80' },
+    { id: 'serum',       label: sc.serum,       photo: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80' },
+    { id: 'mask',        label: sc.mask,        photo: 'https://images.unsplash.com/photo-1600857544200-b2f468e3ef97?w=300&q=80' },
+    { id: 'cream',       label: sc.cream,       photo: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300&q=80' },
+    { id: 'eye-cream',   label: sc.eyeCream,    photo: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&q=80' },
+    { id: 'lip-balm',    label: sc.lipBalm,     photo: 'https://images.unsplash.com/photo-1586495777744-4e6232bf5e25?w=300&q=80' },
+    { id: 'sunscreen',   label: sc.sunscreen,   photo: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=300&q=80' },
+  ];
+
   const [query, setQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
@@ -38,13 +43,12 @@ export function Search({ onCategorySelect }: SearchProps) {
     setFilters(f);
     setShowFilters(false);
   }
-
   return (
     <>
       <div className="screen-content">
         <div className="search-screen__header">
           <div className="search-screen__top-row">
-            <h1 className="search-screen__title">Категории</h1>
+            <h1 className="search-screen__title">{s.title}</h1>
             <button
               className={`search-screen__filter-btn${activeFilterCount > 0 ? ' search-screen__filter-btn--active' : ''}`}
               onClick={() => setShowFilters(true)}
@@ -133,6 +137,17 @@ function SearchIcon() {
     </svg>
   );
 }
+
+function FilterIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="7" y1="12" x2="17" y2="12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="10" y1="17" x2="14" y2="17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 
 function FilterIcon() {
   return (

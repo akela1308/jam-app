@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Settings.css';
 
 interface SettingsProps {
@@ -10,6 +11,8 @@ interface SettingsProps {
 const APP_VERSION = '1.0.0';
 
 export function Settings({ onBack, onEditProfile, onPoints }: SettingsProps) {
+  const { t, lang, setLang } = useLanguage();
+  const s = t.settings;
   const [notifLikes, setNotifLikes] = useState(true);
   const [notifFollows, setNotifFollows] = useState(true);
   const [notifCoupons, setNotifCoupons] = useState(true);
@@ -17,94 +20,64 @@ export function Settings({ onBack, onEditProfile, onPoints }: SettingsProps) {
 
   return (
     <div className="screen-content">
-      {/* Header */}
       <div className="settings__header">
-        {onBack && (
-          <button className="settings__back" onClick={onBack}>←</button>
-        )}
-        <h1 className="settings__title">Настройки</h1>
+        {onBack && <button className="settings__back" onClick={onBack}>←</button>}
+        <h1 className="settings__title">{s.title}</h1>
       </div>
 
-      {/* Account */}
-      <SettingsSection title="Аккаунт">
-        <SettingsRow icon="✏️" label="Редактировать профиль" onTap={onEditProfile} arrow />
-        <SettingsRow icon="🏆" label="Баллы и уровни"        onTap={onPoints}      arrow />
-        <SettingsRow icon="🔗" label="Пригласить друга"      onTap={() => {}}       arrow />
+      <SettingsSection title={s.language}>
+        <div className="settings__lang-row">
+          <button
+            className={`settings__lang-btn${lang === 'hr' ? ' settings__lang-btn--active' : ''}`}
+            onClick={() => setLang('hr')}
+          >🇭🇷 {s.languageHR}</button>
+          <button
+            className={`settings__lang-btn${lang === 'ru' ? ' settings__lang-btn--active' : ''}`}
+            onClick={() => setLang('ru')}
+          >🇷🇺 {s.languageRU}</button>
+        </div>
       </SettingsSection>
 
-      {/* Notifications */}
-      <SettingsSection title="Уведомления">
-        <SettingsToggleRow
-          icon="❤️"
-          label="Лайки на отзывы"
-          value={notifLikes}
-          onChange={setNotifLikes}
-        />
-        <SettingsToggleRow
-          icon="👤"
-          label="Новые подписчики"
-          value={notifFollows}
-          onChange={setNotifFollows}
-        />
-        <SettingsToggleRow
-          icon="🎟️"
-          label="Новые купоны"
-          value={notifCoupons}
-          onChange={setNotifCoupons}
-        />
-        <SettingsToggleRow
-          icon="🎁"
-          label="Старт эвентов"
-          value={notifEvents}
-          onChange={setNotifEvents}
-        />
+      <SettingsSection title={s.account}>
+        <SettingsRow icon="✏️" label={s.editProfile}  onTap={onEditProfile} arrow />
+        <SettingsRow icon="🏆" label={s.pointsLevels} onTap={onPoints}      arrow />
+        <SettingsRow icon="🔗" label={s.inviteFriend} onTap={() => {}}       arrow />
       </SettingsSection>
 
-      {/* Privacy */}
-      <SettingsSection title="Конфиденциальность">
-        <SettingsRow icon="🔒" label="Закрытый профиль"    onTap={() => {}} arrow />
-        <SettingsRow icon="🚫" label="Заблокированные"     onTap={() => {}} arrow badge="0" />
-        <SettingsRow icon="📊" label="Мои данные"          onTap={() => {}} arrow />
+      <SettingsSection title={s.notifications}>
+        <SettingsToggleRow icon="❤️"  label={s.notifLikes}   value={notifLikes}   onChange={setNotifLikes} />
+        <SettingsToggleRow icon="👤"  label={s.notifFollows} value={notifFollows} onChange={setNotifFollows} />
+        <SettingsToggleRow icon="🎟️" label={s.notifCoupons} value={notifCoupons} onChange={setNotifCoupons} />
+        <SettingsToggleRow icon="🎁"  label={s.notifEvents}  value={notifEvents}  onChange={setNotifEvents} />
       </SettingsSection>
 
-      {/* About */}
-      <SettingsSection title="О приложении">
-        <SettingsRow icon="📋" label="Условия использования" onTap={() => {}} arrow />
-        <SettingsRow icon="🛡️" label="Политика конфиденциальности" onTap={() => {}} arrow />
-        <SettingsRow icon="💬" label="Обратная связь"        onTap={() => {}} arrow />
-        <SettingsRow
-          icon="⭐"
-          label="Оценить приложение"
-          onTap={() => {}}
-          arrow
-        />
-        <SettingsRow
-          icon="ℹ️"
-          label="Версия"
-          onTap={() => {}}
-          right={<span className="settings__version-tag">v{APP_VERSION}</span>}
-        />
+      <SettingsSection title={s.privacy}>
+        <SettingsRow icon="🔒" label={s.privateProfile} onTap={() => {}} arrow />
+        <SettingsRow icon="🚫" label={s.blocked}        onTap={() => {}} arrow badge="0" />
+        <SettingsRow icon="📊" label={s.myData}         onTap={() => {}} arrow />
       </SettingsSection>
 
-      {/* Sign out */}
+      <SettingsSection title={s.about}>
+        <SettingsRow icon="📋" label={s.terms}         onTap={() => {}} arrow />
+        <SettingsRow icon="🛡️" label={s.privacyPolicy} onTap={() => {}} arrow />
+        <SettingsRow icon="💬" label={s.feedback}      onTap={() => {}} arrow />
+        <SettingsRow icon="⭐" label={s.rateApp}       onTap={() => {}} arrow />
+        <SettingsRow icon="ℹ️" label={s.version} onTap={() => {}}
+          right={<span className="settings__version-tag">v{APP_VERSION}</span>} />
+      </SettingsSection>
+
       <div className="settings__signout-wrap">
-        <button className="settings__signout-btn">
-          Выйти из аккаунта
-        </button>
+        <button className="settings__signout-btn">{s.signOut}</button>
       </div>
     </div>
   );
 }
 
-/* ── Sub-components ───────────────────────────────────── */
-
 function SettingsSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="settings__section">
       <span className="settings__section-title">{title}</span>
-      <div className="settings__group">
-        {children}
-      </div>
+      <div className="settings__group">{children}</div>
     </div>
   );
 }

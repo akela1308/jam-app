@@ -1,6 +1,7 @@
 import goldCoin from '../assets/coins/gold-coin.svg';
 import silverCoins from '../assets/coins/silver-coins.svg';
 import bronzeCoin from '../assets/coins/bronze-coin.svg';
+import { useLanguage } from '../i18n/LanguageContext';
 import './PointsLevels.css';
 
 type Tier = 'bronze' | 'silver' | 'gold';
@@ -54,7 +55,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
         {onBack && (
           <button className="pl__back" onClick={onBack}>←</button>
         )}
-        <h1 className="pl__title">Баллы и уровни</h1>
+        <h1 className="pl__title">{pl.title}</h1>
       </div>
 
       {/* Current status card */}
@@ -63,7 +64,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
           <img src={tier.icon} alt={tier.label} className="pl__tier-icon" />
           <div>
             <span className="pl__tier-label" style={{ color: tier.color }}>{tier.label}</span>
-            <span className="pl__points-big">{currentPoints.toLocaleString('ru')} баллов</span>
+            <span className="pl__points-big">{currentPoints.toLocaleString('ru')}} {pl.points}</span>
           </div>
         </div>
         {nextTier && (
@@ -109,7 +110,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
                 <img src={t.icon} alt={t.label} className="pl__tier-row-icon" />
                 <div className="pl__tier-row-info">
                   <span className="pl__tier-row-name" style={isActive ? { color: t.color } : {}}>{t.label}</span>
-                  <span className="pl__tier-row-range">{t.min.toLocaleString('ru')} – {t.max.toLocaleString('ru')} баллов</span>
+                  <span className="pl__tier-row-range">{t.min.toLocaleString('ru')} – {t.max.toLocaleString('ru')}} {pl.points}</span>
                 </div>
                 {isActive && <span className="pl__tier-row-badge" style={{ background: t.color }}>Текущий</span>}
                 {isDone && <span className="pl__tier-row-done">✓</span>}
@@ -121,7 +122,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
 
       {/* Earn ways */}
       <div className="pl__section">
-        <span className="pl__section-title">Как заработать баллы</span>
+        <span className="pl__section-title">{pl.howToEarn}</span>
         <div className="pl__earn-list">
           {EARN_WAYS.map((w) => (
             <div key={w.action} className="pl__earn-row">

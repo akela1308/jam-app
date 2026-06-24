@@ -2,6 +2,7 @@ import { useState } from 'react';
 import avatar1 from '../assets/avatars/avatar-1.png';
 import avatar2 from '../assets/avatars/avatar-2.png';
 import avatar3 from '../assets/avatars/avatar-3.png';
+import { useLanguage } from '../i18n/LanguageContext';
 import './Leaderboard.css';
 
 type Period = 'week' | 'month' | 'all';
@@ -69,6 +70,8 @@ interface LeaderboardProps {
 }
 
 export function Leaderboard({ onBack }: LeaderboardProps) {
+  const { t } = useLanguage();
+  const lb = t.leaderboard;
   const [period, setPeriod] = useState<Period>('week');
   const entries = DATA[period];
   const top3 = entries.slice(0, 3);
@@ -110,8 +113,8 @@ export function Leaderboard({ onBack }: LeaderboardProps) {
       {me && me.rank > 3 && (
         <div className="lb__me-banner">
           <span className="lb__me-rank">#{me.rank}</span>
-          <span className="lb__me-label">Моя позиция</span>
-          <span className="lb__me-reviews">{me.reviewCount} отзывов</span>
+          <span className="lb__me-label">{lb.myPosition}</span>
+          <span className="lb__me-reviews">{me.reviewCount}} {lb.reviews}</span>
           <span className="lb__me-likes">♥ {me.likes}</span>
         </div>
       )}
