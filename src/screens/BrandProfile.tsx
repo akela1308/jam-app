@@ -76,9 +76,9 @@ export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProp
         <div className="bp__hero-info">
           <h1 className="bp__brand-name">@blush</h1>
           <div className="bp__stats-list">
-            <span className="bp__stat-row"><strong>12.4K</strong>} {bp.followers}</span>
-            <span className="bp__stat-row"><strong>{PRODUCTS.length}</strong>} {bp.productsCount}</span>
-            <span className="bp__stat-row"><strong>491</strong>} {bp.reviewsCount}</span>
+            <span className="bp__stat-row"><strong>12.4K</strong> {bp.followers}</span>
+            <span className="bp__stat-row"><strong>{PRODUCTS.length}</strong> {bp.productsCount}</span>
+            <span className="bp__stat-row"><strong>491</strong> {bp.reviewsCount}</span>
           </div>
           {/* Social icons */}
           <div className="bp__social">
@@ -156,7 +156,7 @@ export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProp
                 <span className="brand-product-card__name">{p.name}</span>
                 <div className="brand-product-card__meta">
                   <span className="brand-product-card__rating">★ {p.rating}</span>
-                  <span className="brand-product-card__reviews">· {p.reviews}} {bp.reviewsCount}</span>
+                  <span className="brand-product-card__reviews">· {p.reviews} {bp.reviewsCount}</span>
                 </div>
                 <span className="brand-product-card__price">{p.price}</span>
               </div>

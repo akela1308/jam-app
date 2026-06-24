@@ -64,7 +64,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
           <img src={tier.icon} alt={tier.label} className="pl__tier-icon" />
           <div>
             <span className="pl__tier-label" style={{ color: tier.color }}>{tier.label}</span>
-            <span className="pl__points-big">{currentPoints.toLocaleString('ru')}} {pl.points}</span>
+            <span className="pl__points-big">{currentPoints.toLocaleString('ru')} {pl.points}</span>
           </div>
         </div>
         {nextTier && (
@@ -110,7 +110,7 @@ export function PointsLevels({ onBack, currentPoints = 1240, currentTier = 'silv
                 <img src={t.icon} alt={t.label} className="pl__tier-row-icon" />
                 <div className="pl__tier-row-info">
                   <span className="pl__tier-row-name" style={isActive ? { color: t.color } : {}}>{t.label}</span>
-                  <span className="pl__tier-row-range">{t.min.toLocaleString('ru')} – {t.max.toLocaleString('ru')}} {pl.points}</span>
+                  <span className="pl__tier-row-range">{t.min.toLocaleString('ru')} – {t.max.toLocaleString('ru')} {pl.points}</span>
                 </div>
                 {isActive && <span className="pl__tier-row-badge" style={{ background: t.color }}>Текущий</span>}
                 {isDone && <span className="pl__tier-row-done">✓</span>}

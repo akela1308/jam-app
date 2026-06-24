@@ -148,7 +148,7 @@ export function Brands({ onBack, onBrand }: BrandsProps) {
                   <div className="brand-card__meta">
                     <span className="brand-card__followers">{formatNum(brand.followers)} подп.</span>
                     <span className="brand-card__sep">·</span>
-                    <span className="brand-card__reviews">{brand.reviewCount}} {brt.reviews}</span>
+                    <span className="brand-card__reviews">{brand.reviewCount} {brt.reviews}</span>
                   </div>
                   <div className="brand-card__tags">
                     {brand.tags.map((tag) => (

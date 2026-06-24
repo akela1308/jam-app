@@ -114,7 +114,7 @@ export function Leaderboard({ onBack }: LeaderboardProps) {
         <div className="lb__me-banner">
           <span className="lb__me-rank">#{me.rank}</span>
           <span className="lb__me-label">{lb.myPosition}</span>
-          <span className="lb__me-reviews">{me.reviewCount}} {lb.reviews}</span>
+          <span className="lb__me-reviews">{me.reviewCount} {lb.reviews}</span>
           <span className="lb__me-likes">♥ {me.likes}</span>
         </div>
       )}
