@@ -49,6 +49,8 @@ interface BrandProfileProps {
 }
 
 export function BrandProfile({ onBack, onGiveaway, onProduct }: BrandProfileProps) {
+  const { t } = useLanguage();
+  const bp = t.brandProfile;
   const [activeTab, setActiveTab] = useState<BrandTab>('reviews');
   const [subscribed, setSubscribed] = useState(false);
 

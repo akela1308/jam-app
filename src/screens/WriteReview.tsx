@@ -210,7 +210,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.pros}</span>
           <div className="wr-tags">
-            {wr.prosTags.map((tag) => (
+            {(wr.prosTags as string[]).map((tag: string) => (
               <button
                 key={tag}
                 className={`wr-tag wr-tag--pro${pros.includes(tag) ? ' wr-tag--pro-active' : ''}`}
@@ -226,7 +226,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.cons}</span>
           <div className="wr-tags">
-            {wr.consTags.map((tag) => (
+            {(wr.consTags as string[]).map((tag: string) => (
               <button
                 key={tag}
                 className={`wr-tag wr-tag--con${cons.includes(tag) ? ' wr-tag--con-active' : ''}`}
@@ -242,7 +242,7 @@ export function WriteReview({ onPublish }: WriteReviewProps) {
         <div className="wr-section">
           <span className="wr-label">{wr.skinType}</span>
           <div className="wr-tags">
-            {wr.skinTypes.map((type) => (
+            {(wr.skinTypes as string[]).map((type: string) => (
               <button
                 key={type}
                 className={`wr-tag${skinTypes.includes(type) ? ' wr-tag--skin-active' : ''}`}

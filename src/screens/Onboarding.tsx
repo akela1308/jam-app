@@ -76,7 +76,7 @@ export function Onboarding({ onDone }: OnboardingProps) {
 
       {/* Slides */}
       <div className="onboarding__slides-track">
-        {slides.map((s, i) => (
+        {(slides as Array<{emoji:string;title:string;subtitle:string}>).map((s, i) => (
           <div
             key={i}
             className="onboarding__slide"
@@ -104,7 +104,7 @@ export function Onboarding({ onDone }: OnboardingProps) {
       {/* Bottom controls */}
       <div className="onboarding__bottom">
         <div className="onboarding__dots">
-          {slides.map((_, i) => (
+          {(slides as Array<unknown>).map((_: unknown, i: number) => (
             <button
               key={i}
               className="onboarding__dot-btn"

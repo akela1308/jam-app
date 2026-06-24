@@ -94,12 +94,12 @@ interface EventsProps {
 
 export function Events({ onBack, onEvent, onBrand }: EventsProps) {
   const { t } = useLanguage();
-  const ev = t.events;
+  const evT = t.events;
   const FILTERS: { id: EventFilter; label: string }[] = [
-    { id: 'all',    label: ev.all },
-    { id: 'active', label: ev.active },
-    { id: 'soon',   label: ev.soon },
-    { id: 'ended',  label: ev.ended },
+    { id: 'all',    label: evT.all },
+    { id: 'active', label: evT.active },
+    { id: 'soon',   label: evT.soon },
+    { id: 'ended',  label: evT.ended },
   ];
   const [filter, setFilter] = useState<EventFilter>('all');
   const [joined, setJoined] = useState<Set<string>>(
@@ -125,7 +125,7 @@ export function Events({ onBack, onEvent, onBrand }: EventsProps) {
         {onBack && (
           <button className="events__back" onClick={onBack}>←</button>
         )}
-        <h1 className="events__title">{ev.title}</h1>
+        <h1 className="events__title">{evT.title}</h1>
       </div>
 
       {/* Filter tabs */}
@@ -157,7 +157,7 @@ export function Events({ onBack, onEvent, onBrand }: EventsProps) {
               <div className="event-big-card__hero" style={{ background: ev.gradient }}>
                 <div className="event-big-card__status-badge">
                   <span className={`event-big-card__status-dot event-big-card__status-dot--${ev.status}`} />
-                  {STATUS_LABELS[ev.status]}
+                  {(ev.status === 'active' ? evT.active : ev.status === 'soon' ? evT.soon : evT.ended)}
                 </div>
                 <div className="event-big-card__prize-badge">
                   🎁 {ev.maxPrizes} {prizesLabel(ev.maxPrizes)}

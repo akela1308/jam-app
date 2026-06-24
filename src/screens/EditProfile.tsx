@@ -13,7 +13,6 @@ import type { TelegramUser } from '../hooks/useTelegramUser';
 import { useLanguage } from '../i18n/LanguageContext';
 import './EditProfile.css';
 
-const SKIN_TYPES = ['Сухая', 'Жирная', 'Комбинированная', 'Нормальная', 'Чувствительная'];
 
 const SOCIALS = [
   { id: 'tg',   label: 'Telegram',  icon: social1 },
@@ -147,7 +146,7 @@ export function EditProfile({ tgUser, onBack, onSave }: EditProfileProps) {
         <div className="ep__field">
           <label className="ep__label">Тип кожи</label>
           <div className="ep__skin-chips">
-            {SKIN_TYPES.map((type) => (
+            {(t.writeReview.skinTypes as string[]).map((type: string) => (
               <button
                 key={type}
                 className={`ep__skin-chip${skinType === type ? ' ep__skin-chip--active' : ''}`}
